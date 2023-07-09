@@ -1,0 +1,12 @@
+{
+    "label" : {
+        "email": "Email",
+        "password": "Password",
+        "keep_login": "Keep login",
+        "sign_in_with_email": "Sign in with email",
+        "forgot_password": "Forgot password?"
+    },
+    "button": {
+        "sign_in": "Sign in"
+    }
+}

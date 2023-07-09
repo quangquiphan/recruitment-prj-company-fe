@@ -1,0 +1,33 @@
+.sign-in {
+    height: 100vh;
+}
+
+.forgot-pwd {
+    position: absolute;
+    right: 0;
+    text-decoration: none;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+
+#isKeep {
+    margin-right: 5px;
+}
+
+form {
+    width: 412px;
+    padding: 50px 30px;
+    border-radius: 6px;
+    background-color: var(--primary-100);
+    border: 1px solid var(--primary-400);
+}
+
+:host::ng-deep {
+    #pwd {
+        .p-password, .p-inputtext {
+            width: 100%;
+        }
+    }
+}
