@@ -3,27 +3,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AppConstant from 'src/app/utilities/app-constant';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss']
 })
-export class SignInComponent implements OnInit {
-  signInForm: FormGroup = new FormGroup({});
+export class ForgotPasswordComponent implements OnInit{
+  forgotPasswordForm: FormGroup = new FormGroup({});
 
   constructor(
     private fb: FormBuilder
   ) {
-    this.signInForm = this.fb.group({
+    this.forgotPasswordForm = this.fb.group({
       email: ['', Validators.pattern(AppConstant.PATTERNS.EMAIL)],
-      passwordHash: ['', Validators.pattern(AppConstant.PATTERNS.PASSWORD)]
+      type: ["COMPANY"]
     })
   }
 
   ngOnInit(): void {
-    
-  }
-
-  onSignIn() {
     
   }
 }
