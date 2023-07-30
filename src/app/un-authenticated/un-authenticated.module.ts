@@ -8,13 +8,15 @@ import { TranslateModule } from "@ngx-translate/core";
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { SuccessfullyRequestComponent } from './successfully-request/successfully-request.component';
 
 @NgModule({
     declarations: [
         UnAuthenticatedComponent,
         SignInComponent,
         ForgotPasswordComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        SuccessfullyRequestComponent
     ],
 
     imports: [

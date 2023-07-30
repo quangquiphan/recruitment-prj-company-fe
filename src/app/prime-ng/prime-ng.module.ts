@@ -35,6 +35,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { ChartModule } from "primeng/chart";
 import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
+import { ChipModule } from "primeng/chip";
 
 @NgModule({
   declarations: [],
@@ -74,7 +75,8 @@ import { TabViewModule } from 'primeng/tabview';
     MultiSelectModule,
     ChartModule,
     MenuModule,
-    TabViewModule
+    TabViewModule,
+    ChipModule,
   ],
   exports: [
     AccordionModule,
@@ -111,7 +113,8 @@ import { TabViewModule } from 'primeng/tabview';
     MultiSelectModule,
     ChartModule,
     MenuModule,
-    TabViewModule
+    TabViewModule,
+    ChipModule
   ]
 })
 export class PrimeNgModule { }

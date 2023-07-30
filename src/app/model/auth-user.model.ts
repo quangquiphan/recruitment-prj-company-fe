@@ -8,4 +8,5 @@ export interface AuthUser {
     status: string,
     userRole: string,
     companyId: string
+    company: any
 }

@@ -31,6 +31,9 @@ const AppConstant = Object.freeze({
       ACTIVE: "ACTIVE",
       IN_ACTIVE: "IN_ACTIVE"
     },
+    ACCOUNT_TYPE: {
+      COMPANY: "COMPANY"
+    }
 });
 
 export default AppConstant;

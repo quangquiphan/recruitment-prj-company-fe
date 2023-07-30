@@ -1,0 +1,7 @@
+<div class="w-full flex flex-column justify-content-center align-items-center forgot-password">
+    <img src="../../../assets/images/TopWork-logo.png" alt="TopWork" width="130px">
+    
+    <p class="font-size-20" *ngIf="!isSuccess">{{ 'message.check_your_email' | translate }}</p>
+    <p class="font-size-20" *ngIf="isSuccess">{{ 'message.reset_password_successfully' | translate }} 
+        <a [routerLink]="'/sign-in'">{{ 'button.sign_in' | translate }}</a></p>
+</div>

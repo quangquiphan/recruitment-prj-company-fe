@@ -28,7 +28,8 @@
         <div class="w-full flex justify-content-between align-items-end"
              style="margin-bottom: 25px;">
             <div class="flex align-items-end">
-                <p-checkbox id="isKeep"></p-checkbox>
+                <p-checkbox inputId="isKeep" [binary]="true" class="isKeep" 
+                    formControlName="keepLogin" name="isKeep"></p-checkbox>
                 <label for="isKeep" class="font-size-14">
                     {{ 'label.keep_login' | translate }}
                 </label>
@@ -36,7 +37,8 @@
         </div>
 
         <div class="flex justify-content-center">
-            <p-button [label]="'button.sign_in' | translate"></p-button>
+            <p-button [label]="'button.sign_in' | translate" 
+               [disabled]="signInForm.invalid" (onClick)="onSignIn()"></p-button>
         </div>
     </form>
 </div>

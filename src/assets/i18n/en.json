@@ -2,11 +2,44 @@
     "label" : {
         "email": "Email",
         "password": "Password",
+        "confirm_password": "Confirm password",
         "keep_login": "Keep login",
         "sign_in_with_email": "Sign in with email",
-        "forgot_password": "Forgot password?"
+        "forgot_password": "Forgot password?",
+        "jobs": "Jobs",
+        "job": "Job",
+        "setting": "Setting",
+        "matches": "Matches",
+        "applied": "Applied",
+        "rejected": "Rejected"
+    },
+    "message": {
+        "check_your_email": "Check your email!",
+        "reset_password_successfully": "Reset password successfully!"
     },
     "button": {
-        "sign_in": "Sign in"
+        "sign_in": "Sign in",
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete": "Delete",
+        "submit": "Submit"
+    },
+    "SIZE": {
+        "FORM_11_TO_25": "11 - 25",
+        "FORM_26_TO_50": "26 - 50",
+        "FORM_51_TO_100": "51 - 100",
+        "FORM_101_TO_1000": "101 - 1000",
+        "OVER_1000": "> 1000"
+    },
+    "YEAR_EXPERIENCE": {
+        "NON_EXPERIENCE": "0", 
+        "UNDER_1_YEAR": "0 - 1", 
+        "ONE_YEAR": "1", 
+        "TWO_YEAR": "2", 
+        "THREE_YEAR": "3", 
+        "FOUR_YEAR": "4", 
+        "FIVE_YEAR": "5", 
+        "OVER_FIVE_YEAR": "5+"
     }
 }

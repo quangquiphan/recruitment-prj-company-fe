@@ -1,0 +1,39 @@
+<div class="header align-items-end">
+    <span class="font-size-20 font-bold">{{ 'label.jobs' | translate }}</span>
+</div>
+
+<div class="jobs flex flex-wrap" [routerLink]="'/jobs/1/general'">
+    <div class="new-job cursor-pointer">
+        <div class="flex justify-content-center align-items-center">
+            <img src="../../../../assets/images/icons/add.svg" [width]="71" alt="">
+        </div>
+    </div>
+
+    <div class="job-item cursor-pointer">
+        <div class="flex align-items-center">
+            <div class="logo flex justify-content-center align-items-center">
+                <img src="../../../../assets/images/TopWork-logo.png" alt="">
+            </div>
+
+            <div class="flex flex-column justify-content-between">
+                <h1 class="font-size-20">Java Developer</h1>
+                <span class="position">Developer</span>
+            </div>
+        </div>
+
+        <div class="flex justify-content-start align-items-center">
+            <img src="../../../../assets/images/icons/clock.svg" [width]="24" alt="">
+            <p class="font-size-16">25/08/2024</p>
+        </div>
+
+        <div class="flex justify-content-start align-items-center">
+            <img src="../../../../assets/images/icons/dollar-circle.svg" [width]="24" alt="">
+            <p class="font-size-16">Expected</p>
+        </div>
+
+        <div class="flex justify-content-start align-items-center">
+            <img src="../../../../assets/images/icons/location.svg" [width]="24" alt="">
+            <p class="font-size-16">Tp. Ho Chi Minh</p>
+        </div>
+    </div>
+</div>

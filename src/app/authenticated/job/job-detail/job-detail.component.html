@@ -1,0 +1,27 @@
+<div class="header align-items-start">
+    <img src="../../../../assets/images/icons/arrow-left.svg" [width]="25" alt="">
+
+    <div>
+        <div class="flex align-items-center">
+            <h1 class="font-size-20">Java Developer</h1>
+            <span>Developer</span>
+        </div>
+
+        <div class="flex align-items-center">
+            <img src="../../../../assets/images/icons/clock.svg" alt="">
+            <span>25/08/2024</span>
+        </div>
+
+        <div class="flex flex-wrap">
+            <p-chip>Java</p-chip>
+            <p-chip>English</p-chip>
+        </div>
+    </div>
+</div>
+
+<p-tabView>
+    <p-tabPanel *ngFor="let tab of tabViews" [selected]="tab.index === selectedTab" [header]="tab.label">
+        <app-job-general *ngIf="tab.tab == 0"></app-job-general>
+        <app-job-infor *ngIf="tab.tab != 0"></app-job-infor>
+    </p-tabPanel>
+</p-tabView>

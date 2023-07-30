@@ -1,0 +1,31 @@
+<div class="flex w-full auth">
+    <div class="left-menu flex flex-column align-items-center">
+        <div class="logo flex justify-content-center align-items-center">
+            <img src="../../../assets/images/TopWork-logo.png" alt="">
+        </div>
+        <p>{{ authUser?.company?.companyName }}</p>
+
+        <ul class="w-full">
+            <li *ngFor="let i of leftMenu" [routerLink]="i.path" (click)="selectedTab = i.index"
+                class="flex justify-content-start align-items-center"
+                [ngClass]="selectedTab == i.index ? 'active' : ''">
+                <img [src]="i.icon" alt="">
+                <span>{{ i.label | translate }}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="relative body">
+        <div class="nav flex justify-content-end align-items-center">
+            <img src="../../../assets/images/icons/notification.svg" width="64px" alt="">
+            <div class="icon flex justify-content-center align-items-center"
+                [ngClass]="authUser?.avatar?'':'icon-text'">
+                <span *ngIf="!authUser?.avatar">{{ parseIconText(authUser?.email) }}</span>
+                <img [src]="authUser?.avatar" *ngIf="authUser?.avatar" alt="">
+            </div>
+        </div>
+        <div class="body-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

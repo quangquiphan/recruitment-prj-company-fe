@@ -1,0 +1,62 @@
+.icon {
+    width: 70px;
+    height: 70px;
+    border: 1px solid var(--primary-700);
+    border-radius: 50%;
+    margin-right: 10px;
+
+    span {
+        color: var(--primary-50);
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+.icon-bg {
+    background-color: var(--primary-600);
+}
+
+.lose-popup {
+    position: fixed;
+    top: 20px;
+    right: 35px;
+}
+
+.lose-popup.pi {
+    font-size: 2rem;
+    color: var(--primary-600);
+}
+
+.user-job-applicant {
+    & > div {
+        border: 1px solid var(--primary-600);
+        background-color: var(--primary-50);
+        padding: 20px;
+        border-radius: 7px;
+        margin-bottom: 10px;
+
+        & > div {
+            & > div,
+            p {
+                margin-bottom: 10px;
+            }
+
+            & > div:last-child {
+                margin-bottom: 0;
+
+                p-chip {
+                    margin-right: 10px;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+}
+
+.user-detail-popup .p-dialog-mask {
+    background-color: rgba(69, 97, 97, 0.7) !important;
+}

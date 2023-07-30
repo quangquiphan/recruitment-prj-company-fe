@@ -6,7 +6,7 @@ import AppConstant from '../utilities/app-constant';
 import HttpResponse from '../model/http.response.model';
 
 
-let _prefix = "/auth";
+let _prefix = "/authenticated";
 
 @Injectable({providedIn: 'root'})
 
@@ -72,6 +72,36 @@ export class AuthenticateService {
                 }
             )
         );
+    }
+
+    forgotPassword(params: any): Observable<HttpResponse> {
+        return this.http.post<HttpResponse>(`${_prefix}/forgot-password`, params).pipe(
+            map(
+                (result) => {
+                    return result;
+                }
+            )
+        );
+    }
+
+    resetPassword(resetPassword: string, params: any) : Observable<HttpResponse> {
+        return this.http.put<HttpResponse>(`${_prefix}/reset-password/${resetPassword}`, params).pipe(
+            map(
+                (result) => {
+                    return result;
+                }
+            )
+        )
+    }
+
+    changePassword(id: string, params: any) : Observable<HttpResponse> {
+        return this.http.put<HttpResponse>(`${_prefix}/${id}`, params).pipe(
+            map(
+                (result) => {
+                    return result;
+                }
+            )
+        )
     }
 }
 
