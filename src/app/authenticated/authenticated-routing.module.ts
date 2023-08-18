@@ -6,6 +6,7 @@ import { JobComponent } from "./job/job.component";
 import { SettingComponent } from "./setting/setting.component";
 import { JobDetailComponent } from "./job/job-detail/job-detail.component";
 import { JobTableComponent } from "./job/job-table/job-table.component";
+import { SkillComponent } from "./skill/skill.component";
 
 const routes: Routes = [
     {
@@ -42,8 +43,22 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'skills',
+                component: SkillComponent
+            },
+            {
                 path: 'setting',
-                component: SettingComponent
+                component: SettingComponent,
+                children: [
+                    {
+                        path: 'company',
+                        component: SettingComponent
+                    },
+                    {
+                        path: 'member',
+                        component: SettingComponent
+                    }
+                ]
             }
         ]
     }

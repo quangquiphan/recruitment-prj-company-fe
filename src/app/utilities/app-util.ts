@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import * as CryptoJs from 'crypto-js';
 import { MessageService } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core'
 
 const AppUtil = {
     toast(
@@ -17,6 +18,33 @@ const AppUtil = {
             });
         }
     },
+
+    getMessageSuccess(
+        messageService: MessageService, 
+        translateService: TranslateService, 
+        message: string
+    ) {
+        messageService.add({
+                key: 'app-toast',
+            severity: 'success',
+            summary: translateService.instant('message.success'),
+            detail: translateService.instant(message)
+        })
+    },
+
+    getMessageFailed(
+        messageService: MessageService, 
+        translateService: TranslateService, 
+        message: string
+    ) {
+        messageService.add({
+            key: 'app-toast',
+            severity: 'error',
+            summary: translateService.instant('message.failed'),
+            detail: translateService.instant(message)
+        })
+    },
+
     toCamelCaseKey({ obj }: { obj: any }): any {
         if (Array.isArray(obj)) {
             return obj.map((o) => AppUtil.toCamelCaseKey({ obj: o }));

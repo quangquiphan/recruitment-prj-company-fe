@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { UserJobService } from 'src/app/services/user-job.service';
 
 @Component({
   selector: 'app-job-infor',
@@ -7,113 +8,25 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class JobInforComponent implements OnInit{
   @Input() jobStatus: string = '';
+  @Input() users: any[] = [];
+  @Input() totalElements: number = 0;
+  @Input() totalPages: number = 0;
+  @Input() paging: any = {
+    jobId: '',
+    pageNumber: 1,
+    pageSize: 10
+  }
   showUserDetail: boolean = false;
   first: number = 0;
-  paging: any = {
-    pageNumber: 1,
-    pageSize: 1
-  }
   userId: string = '';
-  users: any [] = [];
 
-  constructor() {}
+  constructor(
+  ) {}
 
   ngOnInit(): void {
-    this.users = [
-      {
-        id: 1,
-        fullName: "Full name",
-        position: "Fullstack developer",
-        yearExperience: "4 yr",
-        avatar: 'asd',
-        skills: [
-          {
-            id: 1,
-            name: "Java",
-            level: "Expert"
-          },
-          {
-            id: 2,
-            name: "Php",
-            level: "Beginner"
-          },
-          {
-            id: 3,
-            name: "Wordpress",
-            level: "Immediate"
-          }
-        ],
-        languages: [
-          {
-            id: 1,
-            name: "English",
-            level: 'Expert'
-          }
-        ]
-      },
-      {
-        id: 2,
-        fullName: "Full name",
-        position: "Fullstack developer",
-        yearExperience: "4 yr",
-        avatar: 'asd',
-        skills: [
-          {
-            id: 1,
-            name: "Java",
-            level: "Expert"
-          },
-          {
-            id: 2,
-            name: "Php",
-            level: "Beginner"
-          },
-          {
-            id: 3,
-            name: "Wordpress",
-            level: "Immediate"
-          }
-        ],
-        languages: [
-          {
-            id: 1,
-            name: "English",
-            level: 'Expert'
-          }
-        ]
-      },
-      {
-        id: 3,
-        fullName: "Full name",
-        position: "Fullstack developer",
-        yearExperience: "4 yr",
-        avatar: '',
-        skills: [
-          {
-            id: 1,
-            name: "Java",
-            level: "Expert"
-          },
-          {
-            id: 2,
-            name: "Php",
-            level: "Beginner"
-          },
-          {
-            id: 3,
-            name: "Wordpress",
-            level: "Immediate"
-          }
-        ],
-        languages: [
-          {
-            id: 1,
-            name: "English",
-            level: 'Expert'
-          }
-        ]
-      }
-    ]
+    console.log(this.users);
+    console.log(this.paging);
+    
   }
 
   onPageChange(ev: any) {

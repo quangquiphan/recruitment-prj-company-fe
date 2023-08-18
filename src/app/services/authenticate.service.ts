@@ -94,8 +94,8 @@ export class AuthenticateService {
         )
     }
 
-    changePassword(id: string, params: any) : Observable<HttpResponse> {
-        return this.http.put<HttpResponse>(`${_prefix}/${id}`, params).pipe(
+    changePassword(params: any) : Observable<HttpResponse> {
+        return this.http.put<HttpResponse>(`${_prefix}/change-password`, params).pipe(
             map(
                 (result) => {
                     return result;

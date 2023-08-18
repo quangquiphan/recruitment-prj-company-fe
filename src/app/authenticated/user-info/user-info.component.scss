@@ -1,0 +1,164 @@
+h1 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px !important;
+}
+
+p, span {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.info {
+    padding: 30px 50px;
+    width: 800px;
+    overflow-x: auto;
+
+    & > div {
+        padding-bottom: 20px;
+    }
+}
+
+.info-edu {
+    & > div {
+        width: 49%;
+        justify-content: space-between;
+
+        & > div {
+            margin-bottom: 5px;
+            & > i {
+                margin-right: 10px !important;
+                margin-bottom: unset !important;
+            }
+        }
+
+        & > div:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .education-data {
+        & > div  {
+            margin-bottom: 20px;
+
+            & > div, p {
+                margin-bottom: 5px;
+            }
+        }
+    }
+}
+
+.work-history {
+    margin-bottom: 20px;
+
+    .work-history-data {
+        padding: 0 20px;
+
+        & > div {
+            border-left: 3px solid var(--primary-200);
+        }
+
+        & > div:nth-of-type(1) {
+            padding: 20px 0 10px 20px;
+            
+        }
+
+        & > div:nth-of-type(2) {
+            padding-bottom: 10px;
+        }
+        
+        .line-node {
+            position: absolute;
+            top: 0;
+            left: 11.5px;
+            z-index: 100;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-50);
+            border: 1px solid var(--primary-800);
+            border-radius: 50%;    
+        }
+
+        .workplace {
+            padding-bottom: 20px;
+
+            & > div, h4 {
+                margin-bottom: 5px;
+            }
+        }
+
+        .project {
+            padding-left: 40px;
+
+            h2 {
+                padding-bottom: 10px;
+            }
+
+            & > div {
+                padding-left: 20px;
+                margin-bottom: 20px;
+
+                div, h4, span {
+                    margin-bottom: 5px;
+                }
+
+            }
+
+            & > div:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.item {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.icon {
+    width: 120px;
+    height: 120px;
+    border: 2px solid var(--primary-400);
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.icon-bg {
+    background-color: var(--primary-100);
+}
+
+.icon-text {
+    font-size: 55px;
+    color: var(--primary-700);
+}
+
+.boder-text {
+    padding: 0 10px 10px;
+    border-bottom: 4px solid var(--primary-400);
+    margin-bottom: 30px;
+    width: fit-content;
+}
+
+h1 {
+    & > img {
+        margin-right: 15px !important;
+        margin-bottom: unset !important;
+    }
+
+    > i.pi {
+        font-size: 1.5rem !important;
+    }
+
+    span {
+        font-size: 20px;
+    }
+}
+
+h3 {
+    span {
+        font-size: 16px;
+    }
+}

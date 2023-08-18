@@ -1,27 +1,55 @@
 <div class="header align-items-start">
-    <img src="../../../../assets/images/icons/arrow-left.svg" [width]="25" alt="">
+    <img src="../../../../assets/images/icons/arrow-left.svg" (click)="onBack()" 
+        [width]="25" class="cursor-pointer">
 
     <div>
         <div class="flex align-items-center">
-            <h1 class="font-size-20">Java Developer</h1>
-            <span>Developer</span>
+            <h1 class="font-size-20" style="margin-right: 10px;">{{ job?.jobName }}</h1>
+            <span style="margin-right: 30px;">{{ job?.jobPosition }}</span>
+            <img src="../../../../assets/images/icons/edit-2.svg"
+                (click)="isShowPopupForm = true" class="cursor-pointer">
         </div>
 
         <div class="flex align-items-center">
-            <img src="../../../../assets/images/icons/clock.svg" alt="">
-            <span>25/08/2024</span>
+            <img src="../../../../assets/images/icons/clock.svg">
+            <span>{{ parseDate(job?.expiryDate || '') }}</span>
         </div>
 
         <div class="flex flex-wrap">
-            <p-chip>Java</p-chip>
-            <p-chip>English</p-chip>
+            <p-chip *ngFor="let item of job?.skills">{{ item.name }}</p-chip>
+            <p-chip *ngFor="let item of job?.languages">{{ item.name }}</p-chip>
         </div>
     </div>
 </div>
 
-<p-tabView>
-    <p-tabPanel *ngFor="let tab of tabViews" [selected]="tab.index === selectedTab" [header]="tab.label">
-        <app-job-general *ngIf="tab.tab == 0"></app-job-general>
-        <app-job-infor *ngIf="tab.tab != 0"></app-job-infor>
+<p-tabView (onChange)="onChangeTabView($event)" [(activeIndex)]="selectedTab">
+    <p-tabPanel *ngFor="let tab of tabViews" [selected]="tab.index === selectedTab" 
+        [header]="tab.label | translate">
+        <app-job-general *ngIf="tab.tab == 0" [job]="job"></app-job-general>
+        <app-job-infor *ngIf="tab.tab != 0" [users]="users" [paging]="paging"
+            [totalElements]="totalElements" [totalPages]="totalPages"></app-job-infor>
     </p-tabPanel>
 </p-tabView>
+
+<p-dialog class="custom-dialog" [(visible)]="isShowPopupForm" (onHide)="isShowPopupForm = false"
+    [header]="'label.edit_job' | translate" [draggable]="false">
+    <app-job-form *ngIf="isShowPopupForm" [companyId]="job?.companyId || ''"
+        (isLoadData)="onOpen($event)" [jobId]="job?.id || ''" (isDelete)="confirmDelete($event)"></app-job-form>
+</p-dialog>
+
+<p-dialog class="custom-dialog" [(visible)]="isShowConfirmDeletePopup" (onHide)="isShowConfirmDeletePopup = false"
+    [header]="'label.confirm_delete' | translate" [draggable]="false">
+    <div style="padding: 30px 0 0;">
+        <p style="margin-bottom: 30px;" class="w-full flex justify-content-center">
+            {{ 'message.are_u_wanna_delete_job' | translate : {name: job?.jobName} }}
+        </p>
+
+        <div class="flex justify-content-center align-items-center">
+            <p-button [label]="'button.delete' | translate" class="btn-delete" 
+                (onClick)="onDelete(job?.id)"></p-button>
+            
+            <p-button [label]="'button.cancel' | translate" (onClick)="isShowConfirmDeletePopup = false">
+            </p-button>
+        </div>
+    </div>
+</p-dialog>

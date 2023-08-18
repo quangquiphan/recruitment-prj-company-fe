@@ -1,0 +1,114 @@
+<div class="flex justify-content-center w-full">
+    <div class="content">
+        <div class="flex align-items-center justify-content-start" style="margin-bottom: 30px;">
+            <div class="logo cursor-pointer flex justify-content-center align-items-center">
+                <img src="../../../../assets/images/TopWork-logo.png" width="100%" alt="">
+            </div>
+
+            <!-- <img src="" class="logo flex justify-content-center align-items-center"> -->
+
+            <div>
+                <div class="flex align-items-start justify-content-start">
+                    <h3 style="margin-bottom: 10px; margin-right: 20px;">
+                        {{ company?.companyName }}
+                    </h3>
+                    <img src="../../../../assets/images/icons/edit-2.svg" (click)="isEditCompanyPopup = true">
+                </div>
+                <h4>{{ company?.email }}</h4>
+            </div>
+        </div>
+
+        <div class="flex flex-column general">
+            <h1>{{ 'label.overview' | translate }}</h1>
+            <p [innerHTML]="company?.overview"></p>
+
+            <div class="flex align-items-center" *ngIf="company?.size">
+                <img src="../../../../../assets/images/icons/users.svg" alt="">
+                <span>{{ parseSize(company?.size) }}</span>
+            </div>
+
+            <div class="flex align-items-center" *ngIf="company?.phoneNumber">
+                <img src="../../../../../assets/images/icons/call.svg" alt="">
+                <span>{{ company?.phoneNumber }}</span>
+            </div>
+
+            <div class="flex align-items-center" *ngIf="company?.website">
+                <img src="../../../../../assets/images/icons/global.svg" alt="">
+                <span>{{ company?.website }}</span>
+            </div>
+
+            <div class="flex align-items-start" *ngIf="company?.address">
+                <img src="../../../../../assets/images/icons/briefcase.svg" alt="">
+                <span [innerHTML]="company?.address"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog class="cuctom-dialog" [header]="'label.edit_company' | translate"
+    [(visible)]="isEditCompanyPopup" (onHide)="onCancel()">
+    <form [formGroup]="companyForm" style="padding-top: 30px;">
+        <div class="flex flex-column" style="margin-bottom: 10px;">
+            <label for="email" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.email' | translate }}
+            </label>
+
+            <input type="text" id="email" pInputText formControlName="email" [readOnly]="true">
+        </div>
+
+        <div class="flex flex-column" style="margin-bottom: 10px;">
+            <label for="companyName" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.company_name' | translate }}
+            </label>
+
+            <input type="text" id="companyName" pInputText formControlName="companyName">
+        </div>
+
+        <div class="flex flex-column" style="margin-bottom: 10px;">
+            <label for="overview" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.overview' | translate }}
+            </label>
+
+            <p-editor itemid="overview" formControlName="overview" [style]="{'height' : '100px'}"></p-editor>
+        </div>
+
+        <div class="flex flex-column" style="margin-bottom: 10px;">
+            <label for="phone" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.phone_number' | translate }}
+            </label>
+
+            <input type="text" id="phone" pInputText formControlName="phoneNumber">
+        </div>
+
+        <div class="flex flex-column" style="margin-bottom: 10px;">
+            <label for="size" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.company_size' | translate }}
+            </label>
+
+            <p-dropdown [options]="sizes" [optionValue]="'id'" 
+                [optionLabel]="'label'" formControlName="size" inputId="size"></p-dropdown>
+        </div>
+
+        <div class="flex flex-column" style="margin-bottom: 10px;">
+            <label for="website" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.website' | translate }}
+            </label>
+
+            <input type="text" id="website" pInputText formControlName="website">
+        </div>
+
+        <div class="flex flex-column" style="margin-bottom: 30px;">
+            <label for="address" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.address' | translate }}
+            </label>
+
+            <input type="text" id="address" pInputText formControlName="address">
+        </div>
+
+        <div class="w-full flex justify-content-center align-items-center">
+            <p-button (onClick)="onSubmit()" [label]="'button.edit' | translate" 
+                [style]="{'margin-right' : '20px'}" class="btn-edit"></p-button>
+            <p-button (onClick)="onCancel()" [label]="'button.cancel' | translate"></p-button>
+        </div>
+    </form>
+</p-dialog>

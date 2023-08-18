@@ -1,8 +1,8 @@
 <div class="user-job-applicant">
     <div class="flex justify-content-between w-full" *ngFor="let u of users">
         <div class="flex flex-column" style="width: 78%;">
-            <div class="flex align-items-center cursor-pointer" >
-                <!-- (click)="openPoup(u.id)"> -->
+            <div class="flex align-items-center cursor-pointer"
+                (click)="openPoup(u.id)">
                 <div class="icon flex justify-content-center align-items-center"
                     [ngClass]="u.avatar?'' : 'icon-bg'">
                     <span *ngIf="!u.avatar">QP</span>
@@ -23,12 +23,12 @@
     </div>
 </div>
 
-<!-- <p-paginator [rows]="paging.pageSize" [first]="first" [totalRecords]="users.length"
-    (onPageChange)="onPageChange($event)">
+<p-paginator [rows]="paging.pageSize" [first]="first" [totalRecords]="totalElements"
+    (onPageChange)="onPageChange($event)" *ngIf="totalElements > paging.pageSize">
 </p-paginator>
 
 <p-dialog [(visible)]="showUserDetail" [draggable]="false" class="user-detail-popup" 
     [showHeader]="false">
     <i class="lose-popup pi pi-times-circle cursor-pointer" (click)="showUserDetail = false"></i>
-    <app-candidate-detail *ngIf="showUserDetail" [userId]="userId"></app-candidate-detail>
-</p-dialog> -->
+    <app-user-info *ngIf="showUserDetail" [userId]="userId"></app-user-info>
+</p-dialog>

@@ -1,0 +1,35 @@
+.submit {
+    margin-right: 30px;
+}
+
+img {
+    border: 1px solid var(--blue-700);
+    border-radius: 50%;
+}
+
+.skill {
+    margin-bottom: 20px;
+}
+
+.skill-item {
+    margin-bottom: 10px;
+}
+
+.skill:last-child {
+    margin-bottom: 0;
+}
+
+:host::ng-deep {
+    .btn .p-button {
+        width: 180px !important;
+    }
+
+    p-calendar .p-button {
+        background: none !important;
+        border-radius: 0 6px 6px 0 !important;
+    }
+
+    p-calendar .p-button:hover:enabled {
+        background: none !important;
+    }
+}

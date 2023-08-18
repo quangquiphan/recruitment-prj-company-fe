@@ -1,0 +1,21 @@
+.general {
+    padding: 20px 30px;
+    
+    .general-des {
+        h3 {
+            padding: 0 15px 10px;
+            border-bottom: 3px solid var(--primary-700);
+            width: fit-content;
+        }
+
+        div {
+            padding: 20px;
+            max-width: 700px;
+            line-height: 1.5;
+
+            li {
+                margin-bottom: 5px;
+            }
+        }
+    }
+}

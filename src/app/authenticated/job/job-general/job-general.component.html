@@ -1,1 +1,28 @@
-<p>job-general works!</p>
+<div class="general">
+    <div class="general-des">
+        <h3>{{ 'label.description' | translate }}</h3>
+        <div>
+            <p [innerHTML]="job?.description"></p>
+        </div>
+    </div>
+
+    <div class="general-des">
+        <h3>{{ 'label.required' | translate }}</h3>
+        <div>
+            <p [innerHTML]="job?.required"></p>
+        </div>
+    </div>
+
+    <div class="general-des">
+        <h3>{{ 'label.benefit' | translate }}</h3>
+        <div>
+            <p [innerHTML]="job?.benefited"></p>
+        </div>
+    </div>
+
+    <div class="general-des flex align-items-center" *ngIf="job?.address">
+        <img src="../../../../assets/images/icons/location.svg" 
+            style="margin-right: 20px;">
+        <p>{{ job?.address }}</p>
+    </div>
+</div>

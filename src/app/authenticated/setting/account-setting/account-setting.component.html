@@ -1,0 +1,97 @@
+<div class="flex flex-column align-items-center relative">
+    <div class="flex justify-content-start align-items-start" style="position: absolute; top: -138px; right: 27px;">
+        <p-button (click)="onOpen('')" [label]="'button.new' | translate"></p-button>
+    </div>
+    <div class="flex w-full justify-content-center align-items-center account-items" *ngFor="let i of accountMember">
+        <div class="w-full company-member">
+            <div class="flex w-full justify-content-between align-items-center">
+                <div class="flex w-full justify-content-start align-items-center">
+                    <img class="icon flex align-items-center justify-content-center"
+                        *ngIf="i?.avatar" [src]="i?.avatar" width="100%" alt="">
+                    
+                    <div *ngIf="!i?.avatar" class="icon flex align-items-center justify-content-center">
+                        <img src="../../../../../assets/images/TopWork-logo.png" width="100%" alt="">
+                    </div>
+
+                    <div>
+                        <h3 style="margin-bottom: 3px;">{{ i?.lastName + " " + i?.firstName }}</h3>
+
+                        <h4 style="margin-bottom: 3px;">{{ i?.email }}</h4>
+
+                        <p class="font-size-13">{{ parseRole(i?.role) }}</p>
+                    </div>
+                </div>
+                <img src="../../../../../assets/images/icons/edit-2.svg" class="cursor-pointer" (click)="onOpen(i?.id)">
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="paging.pageSize" [totalRecords]="totalElements" 
+    [first]="first" *ngIf="totalElements > paging.pageSize"></p-paginator>
+
+<p-dialog [(visible)]="showMemberSetting" (onHide)="onCancel()" 
+    [header]="label" class="custom-dialog" [draggable]="false">
+    <form [formGroup]="accountForm">
+        <div class="flex justify-content-between">
+            <div class="flex flex-column">
+                <label class="font-bold" for="firstName" style="margin-bottom: 3px;">
+                    {{ 'label.first_name' | translate }}
+                </label>
+                <input pInputText type="text" id="firstName" formControlName="firstName">
+            </div>
+
+            <div class="flex flex-column">
+                <label class="font-bold" for="lastName" style="margin-bottom: 3px;">
+                    {{ 'label.last_name' | translate }}
+                </label>
+                <input pInputText type="text" id="lastName" formControlName="lastName">
+            </div>
+        </div>
+
+        <div class="flex flex-column">
+            <label class="font-bold" for="email" style="margin-bottom: 3px;">
+                {{ 'label.email' | translate }}
+            </label>
+            <input pInputText type="text" id="email" formControlName="email">
+        </div>
+
+        <div class="font-bold">Role</div>
+
+        <div class="role flex align-items-center" 
+            [ngClass]="accountForm.value.role == constant.USER_ROLE.COMPANY_ADMIN_MEMBER?'role-active' : ''">
+            <p-radioButton name="role" [value]="constant.USER_ROLE.COMPANY_ADMIN_MEMBER" inputId="admin" 
+               formControlName="role"></p-radioButton>
+            <label for="admin">{{ parseRole(constant.USER_ROLE.COMPANY_ADMIN) }}</label>
+        </div>
+
+        <div class="role flex align-items-center" style="margin-bottom: 30px;"
+            [ngClass]="accountForm.value.role == constant.USER_ROLE.COMPANY_MEMBER?'role-active' : ''">
+            <p-radioButton name="role" inputId="member" [value]="constant.USER_ROLE.COMPANY_MEMBER"
+               formControlName="role"></p-radioButton>
+            <label for="member">{{ parseRole(constant.USER_ROLE.COMPANY_MEMBER) }}</label>
+        </div>
+
+        <div class="flex justify-content-center align-items-center">
+            <p-button [label]="(userId ? 'button.edit' : 'button.save') | translate" 
+                (onClick)="onSubmit(userId)" [disabled]="accountForm.invalid || disable"></p-button>
+            <p-button [ngClass]="userId?'btn-delete':'btn-cancel'" (onClick)="userId?isConfirmDelete = true:onCancel()" 
+                [label]="(userId?'button.delete':'button.cancel') | translate"></p-button>
+        </div>
+    </form>
+</p-dialog>
+
+<p-dialog class="custom-dialog" [header]="'label.confirm_delete' | translate"
+    [draggable]="false" [(visible)]="isConfirmDelete" (onHide)="isConfirmDelete">
+    <div style="padding-top: 30px;" class="flex flex-column align-items-center justify-content-center">
+        <p style="margin-bottom: 30px;" class="font-size-14">
+            {{ 'message.are_u_wanna_delete_member' | translate :{name: ''} }}
+        </p>
+        <div class="flex justify-content-center align-items-center">
+            <p-button [label]="'button.delete' | translate" class="btn-delete"
+                (onClick)="deleteUser(userId)"></p-button>
+            <p-button [ngClass]="'btn-cancel'" (onClick)="isConfirmDelete = false" 
+                [label]="'button.cancel' | translate"></p-button>
+        </div>
+    </div>
+</p-dialog>

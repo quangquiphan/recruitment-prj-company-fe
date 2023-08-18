@@ -1,0 +1,142 @@
+<form style="padding-top: 30px; width: 625px;" [formGroup]="jobForm">
+    <div class="flex flex-column" style="margin-bottom: 20px;">
+        <label for="jobName" class="font-size-13" style="margin-bottom: 3px;">
+            {{ 'label.job_name' | translate }}
+        </label>
+        <input type="text" pInputText id="jobName" formControlName="jobName">
+    </div>
+
+    <div style="margin-bottom: 20px;" class="w-full">
+        <div class="flex justify-content-between w-full align-items-center skill">
+            <span>{{ 'label.skill' | translate }}</span>
+            <img src="../../../../assets/images/icons/add.svg" [width]="30"
+                (click)="addSkill()">
+        </div>
+
+        <div formArrayName="skills">
+            <div *ngFor="let item of skills.controls; let i = index">
+                <div [formGroupName]="i" *ngIf="checkSkill(i)"
+                    class="skill-item flex justify-content-between align-items-center">
+                    <div style="width: 90%;"> 
+                        <p-dropdown formControlName="skill_id" [options]="listSkills" [optionLabel]="'skillName'" 
+                            [optionValue]="'id'" [filter]="true" [draggable]="false">
+                        </p-dropdown>
+                    </div>
+                    <img src="../../../../assets/images/icons/delete.svg"
+                        style="border: none;" [width]="40" (click)="removeSkill(i)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 20px;" class="w-full">
+        <div class="flex justify-content-between w-full align-items-center skill">
+            <span>{{ 'label.language' | translate }}</span>
+            <img src="../../../../assets/images/icons/add.svg" (click)="addLang()" 
+                [width]="30" alt="">
+        </div>
+
+        <div formArrayName="languages" class="skill-item">
+            <div *ngFor="let item of languages.controls; let i = index">
+                <div [formGroupName]="i" *ngIf="checkLang(i)" 
+                    class="skill-item flex justify-content-between align-items-center">
+                    <div style="width: 90%;"> 
+                        <p-dropdown formControlName="language_id" [options]="listLang" [optionLabel]="'language'" 
+                            [optionValue]="'id'" [filter]="true" [draggable]="false">
+                        </p-dropdown>
+                    </div>
+                    <img src="../../../../assets/images/icons/delete.svg" (click)="removeLang(i)"
+                        style="border: none;" [width]="40" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex w-full justify-content-between" style="margin-bottom: 20px;">
+        <div class="flex flex-column" style="width: 49%;">
+            <label for="jobPosition" class="font-size-13" style="margin-bottom: 3px;">
+                {{ 'label.job_position' | translate }}
+            </label>
+            <input type="text" pInputText id="jobPosition" formControlName="jobPosition">
+        </div>
+
+        <div class="flex flex-column" style="width: 49%;">
+            <label for="categoryJob" class="font-size-13" style="margin-bottom: 3px;">
+                {{ 'label.category_job' | translate }}
+            </label>
+            <p-dropdown inputId="categoryJob" [options]="categoryJob"
+                [optionValue]="'id'" [optionLabel]="'label'" [draggable]="false"
+                formControlName="categoryJob">
+            </p-dropdown>
+        </div>
+    </div>
+
+    <div class="flex flex-column" style="margin-bottom: 20px;">
+        <label for="description" class="font-size-13" style="margin-bottom: 3px;">
+            {{ 'label.description' | translate }}
+        </label>
+        <p-editor type="text" id="description" [style]="{ height: '100px'}" 
+            formControlName="description"></p-editor>
+    </div>
+
+    <div class="flex flex-column" style="margin-bottom: 20px;">
+        <label for="required" class="font-size-13" style="margin-bottom: 3px;">
+            {{ 'label.required' | translate }}
+        </label>
+        <p-editor type="text" id="required" [style]="{ height: '100px'}"
+            formControlName="required"></p-editor>
+    </div>
+
+    <div class="flex flex-column" style="margin-bottom: 20px;">
+        <label for="benefit" class="font-size-13" style="margin-bottom: 3px;">
+            {{ 'label.benefit' | translate }}
+        </label>
+        <p-editor type="text" id="benefit" [style]="{ height: '100px'}"
+            formControlName="benefited"></p-editor>
+    </div>
+
+    <div class="flex flex-column w-full" style="margin-bottom: 20px;">
+        <label for="expiryDate" class="font-size-13" style="margin-bottom: 3px;">
+            {{ 'label.expiry_date' | translate }}
+        </label>
+        
+        <p-calendar class="w-full" [showIcon]="true" [style]="{width: '100%'}"
+            formControlName="expiryDate" [dateFormat]="'dd-mm-yy'">
+        </p-calendar>
+    </div>
+
+    <div class="flex w-full justify-content-between" style="margin-bottom: 20px;">
+        <div class="flex flex-column" style="width: 49%;">
+            <label for="salary" class="font-size-13" style="margin-bottom: 3px;">
+                {{ 'label.salary' | translate }}
+            </label>
+            <p-dropdown inputId="salary" formControlName="salary"
+                [options]="salary" [optionValue]="'id'" [optionLabel]="'label'"
+                [draggable]="false"></p-dropdown>
+        </div>
+        
+        <div class="flex flex-column" style="width: 49%;">
+            <label for="city" class="font-size-13" style="margin-bottom: 3px;">
+                {{ 'label.city' | translate }}
+            </label>
+            <p-dropdown inputId="city" formControlName="city"
+                [options]="cities" [optionLabel]="'name'" [optionValue]="'name'"
+                [draggable]="false"></p-dropdown>
+        </div>
+    </div>
+
+    <div class="flex flex-column" style="margin-bottom: 40px;">
+        <label for="address" class="font-size-13" style="margin-bottom: 3px;">
+            {{ 'label.address' | translate }}
+        </label>
+        <input type="text" pInputText id="address" formControlName="address">
+    </div>
+
+    <div class="flex justify-content-center align-items-center btn">
+        <p-button class="submit" [label]="(jobId ? 'button.edit' : 'button.save') | translate" 
+            (onClick)="onSubmit()"></p-button>
+        <p-button [label]="(jobId ? 'button.delete' : 'button.cancel') | translate"
+            [ngClass]="jobId ? 'btn-delete' : 'btn-cancel'" 
+            (onClick)="jobId ? isDelete.emit(true) : isLoadData.emit(true)"></p-button>
+    </div>
+</form>

@@ -31,6 +31,25 @@ const AppConstant = Object.freeze({
       ACTIVE: "ACTIVE",
       IN_ACTIVE: "IN_ACTIVE"
     },
+    JOB_STATUS: {
+      MATCHES: "matches",
+      APPLIED: "applied",
+      REJECTED: "rejected",
+    },
+    USER_ROLE: {
+      ADMIN: "ADMIN",
+      COMPANY_ADMIN: "COMPANY_ADMIN",
+      COMPANY_ADMIN_MEMBER: "COMPANY_ADMIN_MEMBER",
+      COMPANY_MEMBER: "COMPANY_MEMBER",
+      USER: "USER"
+    },
+    COMPANY_SIZE: {
+      FORM_11_TO_25: 'FORM_11_TO_25',
+      FORM_26_TO_50: 'FORM_26_TO_50',
+      FORM_51_TO_100: 'FORM_51_TO_100',
+      FORM_101_TO_1000: 'FORM_101_TO_1000',
+      OVER_1000: 'OVER_1000',
+    },
     ACCOUNT_TYPE: {
       COMPANY: "COMPANY"
     }

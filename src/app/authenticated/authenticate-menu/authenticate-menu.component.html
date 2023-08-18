@@ -1,27 +1,31 @@
 <div class="flex w-full auth">
     <div class="left-menu flex flex-column align-items-center">
-        <div class="logo flex justify-content-center align-items-center">
-            <img src="../../../assets/images/TopWork-logo.png" alt="">
+        <div class="flex flex-column align-items-center justify-content-center company-info">
+            <div class="logo flex justify-content-center align-items-center">
+                <img src="../../../assets/images/TopWork-logo.png" alt="">
+            </div>
+            <p>{{ authUser?.company?.companyName }}</p>
         </div>
-        <p>{{ authUser?.company?.companyName }}</p>
 
-        <ul class="w-full">
+        <ul class="w-full menu-items">
             <li *ngFor="let i of leftMenu" [routerLink]="i.path" (click)="selectedTab = i.index"
-                class="flex justify-content-start align-items-center"
-                [ngClass]="selectedTab == i.index ? 'active' : ''">
-                <img [src]="i.icon" alt="">
-                <span>{{ i.label | translate }}</span>
+                class="cursor-pointer" [ngClass]="selectedTab == i.index ? 'active' : ''">
+                <div class="flex justify-content-start align-items-center">
+                    <img [src]="i.icon" alt="">
+                    <span>{{ i.label | translate }}</span>
+                </div>
             </li>
         </ul>
     </div>
 
     <div class="relative body">
         <div class="nav flex justify-content-end align-items-center">
-            <img src="../../../assets/images/icons/notification.svg" width="64px" alt="">
-            <div class="icon flex justify-content-center align-items-center"
-                [ngClass]="authUser?.avatar?'':'icon-text'">
-                <span *ngIf="!authUser?.avatar">{{ parseIconText(authUser?.email) }}</span>
-                <img [src]="authUser?.avatar" *ngIf="authUser?.avatar" alt="">
+            <img src="../../../assets/images/icons/notification.svg" width="30px" 
+                class="cursor-pointer" (click)="isShowSidebar = true;">
+            <div class="flex justify-content-center align-items-center cursor-pointer" 
+                (click)="memnu.toggle($event)">
+                <img src="../../../assets/images/TopWork-logo.png" class="icon-menu" *ngIf="!authUser?.avatar"/>
+                <img [src]="authUser?.avatar" *ngIf="authUser?.avatar" class="icon-menu">
             </div>
         </div>
         <div class="body-content">
@@ -29,3 +33,134 @@
         </div>
     </div>
 </div>
+
+<div class="toggle-menu">
+    <p-menu [model]="items" #memnu [popup]="true"></p-menu>
+</div>
+
+<p-sidebar [(visible)]="isShowSidebar" position="right">
+    <ng-template pTemplate="header" class="flex align-items-center justify-content-start relative">
+        <img src="../../../assets/images/icons/notification.svg" 
+            [width]="30" style="margin-right: 20px;">
+        <h2>{{ 'label.notification' | translate }}</h2>
+
+        <div class="noti-header flex justify-content-around align-items-center" style="width: 360px;">
+            <p-dropdown [options]="notificationFilter" [optionValue]="'id'" [optionLabel]="'label'"
+                (onChange)="onFilterNoti($event)"></p-dropdown>
+            
+                <span (click)="markAllAsRead()" class="cursor-pointer">
+                    {{ 'label.mark_all_as_read' | translate }}
+                </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+        <div class="noti" id="noti">
+            <div *ngFor="let i of notifications" (click)="markAsRead(i.id)"
+                class="notification flex align-items-center" [routerLink]="'/jobs/' + i.id +'/applied'"
+                [ngClass]="i.isRead ? 'border-read' : 'border-unread'">
+                <div class="dot" [ngClass]="i.isRead ? 'bg-read border-read' : 'bg-unread border-unread'"></div>
+            
+                <p [innerHTML]="i.content | translate : {user: parseFullName(i.lastName, i.firstName), jobName: i.jobName}"></p>
+            </div>
+        
+            <div id="loadMore" class="loadMore"></div>
+        </div>
+    </ng-template>
+</p-sidebar>
+
+<p-dialog class="custom-dialog" [header]="'label.information' | translate"
+    [(visible)]="isShowProfilePopup" (onHide)="isShowProfilePopup = false">
+    <form [formGroup]="changeInfoForm" style="padding-top: 30px;">
+        <div class="w-full flex justify-content-center align-items-center" style="margin-bottom: 30px;">
+            <div class="flex justify-content-center align-items-center">
+                <label for="avatar" class="cursor-pointer">
+                    <img [src]="avatar ? avatar : '../../../assets/images/icons/user-bold.svg'"
+                        [ngClass]="avatar ? 'img' : ''" width="76px" class="icon">
+                </label>
+                <input type="file" [hidden]="true" id="avatar" (change)="selectedAvatar($event)"
+                    required accept="image/*">
+            </div>
+        </div>
+
+        <div class="flex justify-content-between align-items-center margin-bottom-10">
+            <div style="width: 49%;" class="flex flex-column">
+                <label for="lastName" class="font-size-14 font-bold" style="margin-bottom: 3px;">
+                    {{ 'label.last_name' | translate }}
+                </label>
+                <input pInputText id="lastName" formControlName="lastName">
+            </div>
+            <div style="width: 49%;" class="flex flex-column">
+                <label for="firstName" class="font-size-14 font-bold" style="margin-bottom: 3px;">
+                    {{ 'label.first_name' | translate }}
+                </label>
+                <input pInputText id="firstName" formControlName="firstName">
+            </div>
+        </div>
+
+        <div class="flex justify-content-between align-items-center margin-bottom-10">
+            <div style="width: 49%;" class="flex flex-column">
+                <label for="dateOfBirth" style="margin-bottom: 3px;" class="font-size-14 font-bold">
+                    {{ 'label.date_of_birth' | translate }}
+                </label>
+                <p-calendar class="w-full" inputId="dateOfBirth" [dateFormat]="'dd-mm-yy'"
+                    formControlName="dateOfBirth"></p-calendar>
+            </div>
+
+            <div style="width: 49%;" class="flex flex-column">
+                <label for="gender" style="margin-bottom: 3px;" class="font-size-14 font-bold">
+                    {{ 'label.gender' | translate }}
+                </label>
+                <p-dropdown [options]="gender" [optionLabel]="'label'" [optionValue]="'id'"
+                    formControlName="gender" [placeholder]="'message.select_gender' | translate"
+                    inputId="gender"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="flex flex-column w-full" style="margin-bottom: 25px;">
+            <label for="phoneNumber" class="font-size-14 font-bold" style="margin-bottom: 2px;">
+                {{ 'label.phone_number' | translate }}
+            </label>
+            <input pInputText id="phoneNumber" formControlName="phoneNumber">
+        </div>
+
+        <div class="flex justify-content-center">
+            <p-button [label]="'button.edit' | translate" 
+               [disabled]="changeInfoForm.invalid" (onClick)="onUpdate()"></p-button>
+        </div>
+    </form>
+</p-dialog>
+
+<p-dialog class="custom-dialog" [header]="'label.change_password' | translate"
+    [(visible)]="isChangePasswordPopup" (onHide)="isChangePasswordPopup = false">
+    <form [formGroup]="changePasswordForm" style="padding-top: 30px;">
+        <div class="flex flex-column w-full margin-bottom-10">
+            <label for="pwd" class="font-size-14 font-bold" style="margin-bottom: 2px;">
+                {{ 'label.old_password' | translate }}
+            </label>
+            <p-password id="pwd" class="w-full" formControlName="oldPassword"
+                [toggleMask]="true"></p-password>
+        </div>
+
+        <div class="flex flex-column w-full margin-bottom-10">
+            <label for="pwd" class="font-size-14 font-bold" style="margin-bottom: 2px;">
+                {{ 'label.new_password' | translate }}
+            </label>
+            <p-password id="pwd" class="w-full" formControlName="newPassword"
+                [toggleMask]="true"></p-password>
+        </div>
+
+        <div class="flex flex-column w-full" style="margin-bottom: 25px;">
+            <label for="pwd" class="font-size-14 font-bold" style="margin-bottom: 2px;">
+                {{ 'label.confirm_new_password' | translate }}
+            </label>
+            <p-password id="pwd" class="w-full" formControlName="confirmNewPassword"
+                [toggleMask]="true"></p-password>
+        </div>
+
+        <div class="flex justify-content-center">
+            <p-button [label]="'label.change_password' | translate" 
+               [disabled]="changePasswordForm.invalid" (onClick)="onChangePassword()"></p-button>
+        </div>
+    </form>
+</p-dialog>

@@ -1,0 +1,66 @@
+<div class="header align-items-end justify-content-between" > 
+    <span class="font-size-20 font-bold" >
+        {{'label.skills' | translate}}
+    </span>
+
+    <p-button (onClick)="isShowPopupForm = true" [label]="'button.new' | translate"></p-button>
+</div>
+
+<div class="skill-table">
+    <p-table [value]="skills" [lazy]="true" class="table" (onLazyLoad)="onLoadData($event)" [paginator]="true"
+        [rows]="paging.pageSize" [rowHover]="true" [totalRecords]="totalElements" [(first)]="first"
+        [paginator]="totalElements > paging.pageSize">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'label.id' | translate }}</th>
+                <th>{{ 'label.skill_name' | translate }}</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+            <tr (click)="onOpenPopup(item.id, item.skillName)">
+                <td>{{ item.id }}</td>
+                <td>{{ item.skillName }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [header]="(skillId ? 'label.edit_skill' : 'label.add_skill') | translate" [draggable]="false"
+    [(visible)]="isShowPopupForm" (onHide)="isShowPopupForm = false" class="custom-dialog">
+    <form [formGroup]="skillForm" style="padding-top: 30px;">
+        <div class="flex flex-column" style="margin-bottom: 30px;">
+            <label for="skillName" class="font-size-13 font-bold" style="margin-bottom: 3px;">
+                {{ 'label.skill_name' | translate }}
+            </label>
+            <input type="text" pInputText formControlName="skillName">
+        </div>
+
+        <div class="w-full flex justify-content-center align-items-center">
+            <p-button [label]="(skillId ? 'button.edit' : 'button.save') | translate"
+                (onClick)="onSubmit()" class="btn"></p-button>
+
+            <p-button [label]="(skillId ? 'button.delete' : 'button.cancel') | translate"
+                (onClick)="skillId ? isConfirmDelete = true : isShowPopupForm = false" class="btn" [ngClass]="skillId ? 'btn-delete' : 'btn-cancel'">
+            </p-button>
+        </div>
+    </form>
+</p-dialog>
+
+<p-dialog [header]="'label.confirm_delete' | translate" [(visible)]="isConfirmDelete" (onHide)="isConfirmDelete = false"
+    class="custom-dialog">
+    <div style="padding-top: 30px;" class="flex w-full flex-column justify-content-center align-items-center">
+        <p style="margin-bottom: 30px;">
+            {{ 'message.are_u_wanna_delete_skill' | translate : {name: map.get(skillId)} }}
+        </p>
+
+        <div class="flex">
+            <p-button [label]="'button.delete' | translate"
+                (onClick)="onDelete()" class="btn btn-delete"></p-button>
+
+            <p-button [label]="'button.cancel' | translate"
+                (onClick)="isConfirmDelete = false" class="btn" [ngClass]="'btn-cancel'">
+            </p-button>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,137 @@
+<div class="w-full flex justify-content-center">
+    <div class="info flex flex-column justify-content-center align-items-start">
+        <div class="flex align-items-center justify-content-center w-full">
+            <div class="icon flex justify-content-center align-items-center"
+                [ngClass]="user.avatar?'' : 'icon-bg'">
+                <img [src]="candidate?.avatar" alt="" *ngIf="candidate?.avatar">
+                <img *ngIf="!candidate?.avatar" src="../../../../assets/images/TopWork-logo.png" width="100%">
+            </div>
+    
+            <div class="flex flex-column">
+                <h2 style="margin-bottom: 3px;">{{ getFullName(candidate?.firstName, candidate?.lastName) }}</h2>
+                <div class="deliver" style="margin-bottom: 3px;"></div>
+                <h4 style="margin-bottom: 3px;">{{ candidate?.title }}</h4>
+                <span>
+                    {{ (candidate?.yearExperience > 1 ? 'label.year_experiences':'label.year_experience') | translate 
+                        :{year: getYearExperience(candidate?.yearExperience)} }}
+                </span>
+            </div>
+        </div>
+    
+        <div *ngIf="candidate?.summary">
+            <h1 class="boder-text flex align-items-center">
+                <img class="i" src="../../../../assets/images/icons/archive-minus.svg" alt="">
+                <span>summary</span>
+            </h1>
+    
+            <p [innerHTML]="candidate?.summary"></p>
+        </div>
+    
+        <div class="w-full flex info-edu justify-content-between">
+            <div>
+                <h1 class="boder-text flex align-items-center">
+                    <img src="../../../../assets/images/icons/info-circle.svg" alt="" class="i">
+                    <span>Information</span>
+                </h1>
+                <div class="flex align-items-center" *ngIf="candidate?.gender">
+                    <img src="../../../../assets/images/icons/gender.svg" style="margin: 0 5px 5px 0;" alt="">
+                    <p>{{ candidate?.gender }}</p>
+                </div>
+        
+                <div class="flex align-items-center" *ngIf="candidate?.phoneNumber">
+                    <img src="../../../../assets/images/icons/call.svg" style="margin: 0 5px 5px 0;" alt="">
+                    <p>{{ candidate?.phoneNumber }}</p>
+                </div>
+        
+                <div class="flex align-items-center" *ngIf="candidate?.email">
+                    <img src="../../../../assets/images/icons/sms.svg" style="margin: 0 5px 5px 0;" alt="">
+                    <p>{{ candidate?.email }}</p>
+                </div>
+        
+                <div class="flex align-items-center" *ngIf="candidate?.github">
+                    <img src="../../../../assets/images/icons/global.svg" style="margin: 0 5px 5px 0;" alt="">
+                    <p>{{ candidate?.github }}</p>
+                </div>
+        
+                <div class="flex align-items-center" *ngIf="candidate?.address">
+                    <img src="../../../../assets/images/icons/location.svg" style="margin: 0 5px 5px 0;" alt="">
+                    <p>{{ candidate?.address }}</p>
+                </div>
+            </div>
+            
+            <div *ngIf="candidate?.educations.length>0">
+                <h1 class="boder-text flex align-items-center">
+                    <img src="../../../../assets/images/icons/buliding.svg" alt="">
+                    <span>Education</span>
+                </h1>
+
+                <div class="flex flex-column w-full relative education-data" 
+                    *ngFor="let item of candidate?.educations">
+                    <div class="w-full">
+                        <div class="flex w-full justify-content-between align-items-center">
+                            <h3>{{ item.schoolName }}</h3>
+                            <span>{{ item.fromDate + " - " + (item.current? 'Now' : item.toDate)}}</span>
+                        </div>
+                        <p>{{ 'Major : ' + item.course }}</p>
+                        <p [innerHTML]="item.description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="w-full work-history" *ngIf="candidate?.workHistories.length>0">
+            <h1 class="boder-text flex align-items-center">
+                <img src="../../../../assets/images/icons/briefcase.svg" alt="">
+                <span>Work history</span>
+            </h1>
+    
+            <div class="flex flex-column w-full relative work-history-data" 
+                *ngFor="let item of candidate?.workHistories">
+                <span class="line-node"></span>
+                <div class="w-full workplace">
+                    <div class="flex w-full justify-content-between align-items-center">
+                        <div class="flex align-items-center">
+                            <img src="../../../../assets/images/icons/buliding.svg" style="margin-right: 5px;">
+                            <h3>{{ item.companyName }}</h3>
+                        </div>
+                        <span>{{ item.fromDate + " - " + item.toDate}}</span>
+                    </div>
+                    <h4>{{ item.position }}</h4>
+                    <p [innerHTML]="item.description"></p>
+                </div>
+    
+                <div class="project" *ngIf="item.projects.length>0">
+                    <h3 class="boder-text flex align-items-center" style="margin-bottom: 15px">
+                        <img src="../../../../assets/images/icons/clipboards.svg" style="margin-right: 5px">
+                        <span>Projects</span>
+                    </h3>
+                    <div class="flex flex-column"  *ngFor="let p of item.projects">
+                        <div class="flex w-full justify-content-between align-items-center">
+                            <div class="flex align-items-center">
+                                <img src="../../../../assets/images/icons/clipboard.svg" style="margin-right: 5px;">
+                                <h3>{{ p.projectName }}</h3>
+                            </div>
+                            <span>{{ p.fromDate + " - " + p.toDate}}</span>
+                        </div>
+                        <h4>{{ p.position }}</h4>
+                        <span>{{ 'Team size : ' + p.teamSize }}</span>
+                        <span>{{ 'Technology : ' + p.technology }}</span>
+                        <p [innerHTML]="p.description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+        <div>
+            <h1 class="boder-text flex align-items-center">
+                <img src="../../../../assets/images/icons/task.svg">
+                <span>Skill</span>
+            </h1>
+
+            <div class="flex flex-wrap">
+                <p-chip class="item" *ngFor="let i of skill">{{ i.name }}</p-chip>
+                <p-chip class="item" *ngFor="let i of language">{{ i.name }}</p-chip>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,13 @@
 .auth {
     background-color: var(--background);
-    height: 100vh;
+    min-width: 915px;
 
     .left-menu {
         width: 280px;
-        padding: 30px 0 30px 30px;
+
+        .company-info {
+            padding: 30px 0 50px;
+        }
 
         .logo {
             width: 220px;
@@ -13,7 +16,7 @@
             border-radius: 50%;
             border: 1px solid var(--primary-700);
             background-color: var(--white);
-            
+
             img {
                 width: 100%;
             }
@@ -23,6 +26,10 @@
             font-size: 13px;
             margin-bottom: 50px;
             font-weight: bold;
+        }
+
+        .menu-items {
+            padding: 0 0 30px 30px;
         }
 
         ul li {
@@ -36,6 +43,10 @@
             img {
                 margin-right: 20px;
             }
+        }
+        
+        ul li:focus-visible {
+            outline: unset !important;
         }
 
         .active {
@@ -52,17 +63,19 @@
         width: calc(100% - 280px);
 
         .nav {
-            height: 100px;
+            height: 50px;
             width: 100%;
             padding: 0 60px;
+            background-color: var(--background);
+            min-width: calc(915px - 280px);
 
             & > img {
                 margin-right: 31px;
             }
 
-            .icon {
-                width: 64px;
-                height: 64px;
+            .icon-menu {
+                width: 30px;
+                height: 30px;
                 border: 2px solid var(--primary-700);
                 border-radius: 50%;
                 background-color: var(--white);
@@ -72,19 +85,104 @@
                     color: var(--white);
                 }
             }
-
-            .icon-text {
-                background-color: var(--primary-700);
-            }
         }
-    
+
         .body-content {
             z-index: 1000;
             position: relative;
-            width: 100%;
-            min-height: calc(100vh - 100px);
+            min-width: calc(915px - 280px);
+            height: calc(100vh - 50px);
+            overflow-x: hidden;
+            overflow-y: hidden;
             background-color: var(--white);
             border-top-left-radius: 50px;
+        }
+    }
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+
+.icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-700);
+}
+
+.notification {
+    max-width: 360px;
+    padding: 13px 20px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+
+    .dot {
+        width: 7px;
+        height: 7px;
+        margin-right: 10px;
+        border-radius: 50%;
+    }
+}
+
+.border-read {
+    border: 1px solid var(--primary-700);
+}
+
+.border-unread {
+    border: 1px solid var(--gray-700);
+}
+
+.bg-read {
+    background-color: var(--primary-700);
+}
+
+.bg-unread {
+    background-color: var(--gray-700);
+}
+
+:host::ng-deep {
+    .p-sidebar-right {
+        width: 25rem !important;
+    }
+
+    .p-sidebar .p-sidebar-header {
+        background: var(--blue-50);
+        padding-bottom: 4.5rem !important;
+        margin-bottom: 30px;
+    }
+
+    .p-sidebar .p-sidebar-footer {
+        padding: 0 !important;
+    }
+
+    .p-menu {
+        width: 14.5rem !important;
+    }
+
+    .p-menu .p-menuitem-link {
+        align-items: end !important;
+        justify-content: flex-start;
+    }
+
+    .p-menu .p-menuitem-link .p-menuitem-icon {
+        margin-right: 1.25rem !important;
+    }
+
+    .p-datepicker {
+        top: -244px !important;
+    }
+
+    .noti-header {
+        position: absolute;
+        top: 70px;
+
+        .p-dropdown {
+            border: none !important;
+            border-bottom: 2px solid var(--primary-700) !important;
+            border-radius: 0 !important;
+            width: 200px !important;
+            background-color: var(--blue-50);
         }
     }
 }

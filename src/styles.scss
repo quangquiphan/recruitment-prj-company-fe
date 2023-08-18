@@ -155,7 +155,7 @@ body {
     color: var(--primary-700) !important;
 }
 
-h1, h2, h3, h4, h5, h6, p, ul {
+h1, h2, h3, h4, h5, h6, p, ul, label, span, td, th {
     margin: 0;
     padding: 0;
     color: var(--primary-700) !important;
@@ -213,9 +213,9 @@ a {
 }
 
 .header {
-    padding: 50px 50px 56px;
+    padding: 50px 50px 20px;
     display: flex;
-    min-height: 200px !important;
+    min-height: fit-content !important;
     background-color: var(--primary-50);
     border-top-left-radius: 50px;
     margin-bottom: 29px;
@@ -299,6 +299,10 @@ a {
     .p-dialog-mask {
         background: rgba(85, 97, 97, 0.7);
     }
+
+    .p-button {
+        min-width: 180px;
+    }
 }
 
 .table {
@@ -333,31 +337,53 @@ a {
     width: 100%;
 }
 
+.p-dropdown {
+    border-color: var(--blue-300) !important;
+}
+
+.p-dropdown .p-dropdown-trigger {
+    background-image: url(./assets/images/icons/arrow-down.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.p-calendar {
+    width: 100% !important; 
+}
+
 .p-icon {
     color: var(--primary-700);
 }
 
 .p-button {
-    padding: 0.4rem 1.25rem !important;
+    padding: 0.4rem 1.8rem !important;
     justify-content: center;
-    width: 180px;
+    width: fit-content;
     font-size: 14px !important;
     font-weight: 700 !important;
     border-radius: 25px !important;
 
     .p-button-label {
-        color: var(--white);
+        color: var(--white) !important;
     }
 }
 
 .p-button:enabled:hover {
     background-color: var(--blue-800) !important;
+
+    .p-button-label {
+        color: var(--white) !important;
+    }
 }
 
 .btn-delete {
     .p-button {
         border-color: var(--red-400) !important;
         background-color: var(--red-400) !important;
+
+        &:hover {
+            background-color: var(--red-700) !important;
+        }
     }
 }
 
@@ -372,6 +398,9 @@ a {
     .p-button {
         border-color: var(--primary-100) !important;
         background-color: var(--primary-100) !important;
-        color: var(--blue-800) !important;
+
+        .p-button-label {
+            color: var(--blue-700) !important;
+        }
     }
 }

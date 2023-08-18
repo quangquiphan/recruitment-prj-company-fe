@@ -19,3 +19,14 @@
         margin-bottom: 0;
     }
 }
+
+.btn-delete {
+    margin-right: 30px;
+}
+
+:host::ng-deep {
+    .p-tabview .p-tabview-panels {
+        height: calc(100vh - 250px - 50px - 29px);
+        overflow-y: auto;
+    }
+}

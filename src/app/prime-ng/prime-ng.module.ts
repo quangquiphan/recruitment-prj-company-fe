@@ -36,6 +36,8 @@ import { ChartModule } from "primeng/chart";
 import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
 import { ChipModule } from "primeng/chip";
+import { SidebarModule } from "primeng/sidebar";
+import { RadioButtonModule } from "primeng/radiobutton";
 
 @NgModule({
   declarations: [],
@@ -77,6 +79,8 @@ import { ChipModule } from "primeng/chip";
     MenuModule,
     TabViewModule,
     ChipModule,
+    SidebarModule,
+    RadioButtonModule,
   ],
   exports: [
     AccordionModule,
@@ -114,7 +118,9 @@ import { ChipModule } from "primeng/chip";
     ChartModule,
     MenuModule,
     TabViewModule,
-    ChipModule
+    ChipModule,
+    SidebarModule,
+    RadioButtonModule,
   ]
 })
 export class PrimeNgModule { }

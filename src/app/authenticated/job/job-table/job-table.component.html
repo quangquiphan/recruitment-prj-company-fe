@@ -1,39 +1,43 @@
-<div class="header align-items-end">
-    <span class="font-size-20 font-bold">{{ 'label.jobs' | translate }}</span>
+<div class="header align-items-end justify-content-between" > 
+    <span class="font-size-20 font-bold" >
+        {{'label.jobs' | translate}}
+    </span>
+
+    <p-button (onClick)="isShowPopupForm = true" [label]="'button.new' | translate"></p-button>
+</div> 
+
+<div class="jobs">
+    <div class="w-full company-job cursor-pointer" *ngFor="let job of jobs" [routerLink]="'/jobs/' + job.id" 
+    [ngClass]="checkExpiryDateJob(job.expiryDate)?'company-job-expiry' : ''"> 
+        <div class="flex flex-column w-full"> 
+            <div class="flex w-full justify-content-between align-items-center"> 
+                <h3>{{job.jobName}}</h3> 
+                <div class="flex align-items-center"> 
+                    <img src="../../../../../assets/images/icons/clock.svg" 
+                        style="margin-right: 10px;"> 
+                    <span>{{ parseDate(job.expiryDate) }}</span> 
+                </div> 
+            </div> 
+            <h4>{{job.jobPosition}}</h4> 
+            <span>{{ parseSalary(job.salary) }}</span> 
+            <div class="flex flex-wrap"> 
+                <p-chip *ngFor="let skill of job.skills" class="flex align-items-center"> 
+                    <span class="skill-name">{{skill.name}}</span> 
+                </p-chip> 
+                <p-chip *ngFor="let lang of job.languages" class="flex align-items-center"> 
+                    <span class="skill-name">{{lang.name}}</span> 
+                </p-chip> 
+            </div> 
+        </div>
+    </div> 
+
+    <p-paginator (onPageChange)="onPageChange($event)" [rows]="paging.pageSize" 
+        [totalRecords]="totalElements" [first]="first" *ngIf="totalElements > paging.pageSize"> 
+    </p-paginator>
 </div>
 
-<div class="jobs flex flex-wrap" [routerLink]="'/jobs/1/general'">
-    <div class="new-job cursor-pointer">
-        <div class="flex justify-content-center align-items-center">
-            <img src="../../../../assets/images/icons/add.svg" [width]="71" alt="">
-        </div>
-    </div>
-
-    <div class="job-item cursor-pointer">
-        <div class="flex align-items-center">
-            <div class="logo flex justify-content-center align-items-center">
-                <img src="../../../../assets/images/TopWork-logo.png" alt="">
-            </div>
-
-            <div class="flex flex-column justify-content-between">
-                <h1 class="font-size-20">Java Developer</h1>
-                <span class="position">Developer</span>
-            </div>
-        </div>
-
-        <div class="flex justify-content-start align-items-center">
-            <img src="../../../../assets/images/icons/clock.svg" [width]="24" alt="">
-            <p class="font-size-16">25/08/2024</p>
-        </div>
-
-        <div class="flex justify-content-start align-items-center">
-            <img src="../../../../assets/images/icons/dollar-circle.svg" [width]="24" alt="">
-            <p class="font-size-16">Expected</p>
-        </div>
-
-        <div class="flex justify-content-start align-items-center">
-            <img src="../../../../assets/images/icons/location.svg" [width]="24" alt="">
-            <p class="font-size-16">Tp. Ho Chi Minh</p>
-        </div>
-    </div>
-</div>
+<p-dialog class="custom-dialog" [(visible)]="isShowPopupForm" (onHide)="isShowPopupForm = false"
+    [header]="'label.add_job' | translate" [draggable]="false">
+    <app-job-form *ngIf="isShowPopupForm" [companyId]="this.authUser?.company.id"
+        (isLoadData)="onCancel($event)" [jobId]="''"></app-job-form>
+</p-dialog>

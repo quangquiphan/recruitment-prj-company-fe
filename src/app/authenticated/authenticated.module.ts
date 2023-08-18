@@ -12,6 +12,11 @@ import { JobInforComponent } from './job/job-infor/job-infor.component';
 import { JobDetailComponent } from './job/job-detail/job-detail.component';
 import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule } from "@angular/forms";
+import { JobFormComponent } from './job/job-form/job-form.component';
+import { SkillComponent } from './skill/skill.component';
+import { CompanySettingComponent } from './setting/company-setting/company-setting.component';
+import { AccountSettingComponent } from './setting/account-setting/account-setting.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +27,12 @@ import { ReactiveFormsModule } from "@angular/forms";
         JobTableComponent,
         JobGeneralComponent,
         JobInforComponent,
-        JobDetailComponent
+        JobDetailComponent,
+        JobFormComponent,
+        SkillComponent,
+        CompanySettingComponent,
+        AccountSettingComponent,
+        UserInfoComponent,
     ],
 
     imports: [

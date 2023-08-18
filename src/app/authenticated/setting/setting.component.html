@@ -1,1 +1,16 @@
-<p>setting works!</p>
+<div class="header align-items-end justify-content-between" > 
+    <span class="font-size-20 font-bold" >
+        {{ label | translate}}
+    </span>
+
+    <!-- <p-button (onClick)="isShowPopupForm = true" [label]="'button.new' | translate"></p-button> -->
+</div> 
+
+<p-tabView (onChange)="onChangeTabView($event)" [activeIndex]="selectedTab">
+    <p-tabPanel *ngFor="let tab of tabViews" [selected]="tab.index === selectedTab" 
+        [header]="tab.label | translate">
+        <app-company-setting *ngIf="selectedTab == 0" [companyId]="companyId"></app-company-setting>
+        <app-account-setting *ngIf="selectedTab == 1" [companyId]="companyId"
+            [userRole]="userRole"></app-account-setting>
+    </p-tabPanel>
+</p-tabView>
