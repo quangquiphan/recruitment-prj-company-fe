@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { AuthUser } from 'src/app/model/auth-user.model';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
 import { JobService } from 'src/app/services/job.service';
+import AppConstant from 'src/app/utilities/app-constant';
 
 @Component({
   selector: 'app-job-table',
@@ -18,7 +19,6 @@ export class JobTableComponent implements OnInit{
     pageSize: 10
   }
   totalElements: number = 0;
-  totalPages: number = 0;
   first: number = 0;
   isShowPopupForm: boolean = false;
 
@@ -54,9 +54,8 @@ export class JobTableComponent implements OnInit{
     this.jobService.getAllJobByCompanyId(params).subscribe(
       res => {
         if (res.status === 200) {
-          this.jobs = res.data.content;
-          this.totalElements = res.data.totalElements,
-          this.totalPages = res.data.totalPages;
+          this.jobs = res.data;
+          this.totalElements = res.data.length;
         }
       }
     )
@@ -68,7 +67,7 @@ export class JobTableComponent implements OnInit{
   }
 
   parseDate(date: string) {
-    return moment(moment(date, 'DD-MM-YYYY').toDate()).format("DD-MM-YYYY");
+    return moment(date).format(AppConstant.DATE_FORMAT.GET);
   }
 
   parseSalary(salary: string) {

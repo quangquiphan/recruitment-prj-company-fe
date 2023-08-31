@@ -35,7 +35,7 @@ export class NotificationService {
   }
 
   markAllAsRead(companyId: string) : Observable<HttpResponse> {
-    return this.http.put<HttpResponse>(`${_prefix}`, companyId).pipe(
+    return this.http.put<HttpResponse>(`${_prefix}/all/${companyId}`, {}).pipe(
       map(
         result => {
           return result;

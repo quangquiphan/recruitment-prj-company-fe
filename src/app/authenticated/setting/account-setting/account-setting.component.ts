@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
+import { AuthenticateService } from 'src/app/services/authenticate.service';
 import { UserService } from 'src/app/services/user.service';
 import AppConstant from 'src/app/utilities/app-constant';
 import AppUtil from 'src/app/utilities/app-util';
@@ -37,7 +38,8 @@ export class AccountSettingComponent implements OnInit{
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private authenticateService: AuthenticateService,
   ) {
     this.accountForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -65,8 +67,12 @@ export class AccountSettingComponent implements OnInit{
     return this.addMember(this.accountForm.value);
   }
 
-  onOpen(id: string) {
-    if (this.userRole === AppConstant.USER_ROLE.COMPANY_MEMBER) return;
+  onOpen(id: string, role: string) {
+    if (!this.checkRole(role)) {
+      return AppUtil.getMessageFailed(this.messageService, this.translateService,
+        'message.permission_access_denied');
+    }
+
     this.showMemberSetting = true;
     this.userId = id;
     this.accountForm.patchValue({
@@ -167,6 +173,27 @@ export class AccountSettingComponent implements OnInit{
         }
       }
     )    
+  }
+
+  checkRole(role: string) {
+    let disable = false;
+    switch (this.authenticateService.authUser?.role) {
+      case AppConstant.USER_ROLE.COMPANY_ADMIN:
+        disable = true;
+        break;
+
+      case AppConstant.USER_ROLE.COMPANY_ADMIN_MEMBER:
+        if (role !== AppConstant.USER_ROLE.COMPANY_ADMIN) {
+          disable = true;
+        }
+      break;
+
+      case AppConstant.USER_ROLE.COMPANY_MEMBER:
+        disable = false;
+        break;
+    }
+
+    return disable;
   }
 
   parseRole(role: string) {

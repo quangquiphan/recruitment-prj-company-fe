@@ -1,9 +1,13 @@
 <div class="flex w-full auth">
     <div class="left-menu flex flex-column align-items-center">
         <div class="flex flex-column align-items-center justify-content-center company-info">
-            <div class="logo flex justify-content-center align-items-center">
-                <img src="../../../assets/images/TopWork-logo.png" alt="">
+            <div class="logo flex justify-content-center align-items-center" 
+                *ngIf="!authUser?.company.avatar">
+                <img src="../../../assets/images/TopWork-logo.png">
             </div>
+            <img [src]="authUser?.company.avatar" *ngIf="authUser?.company.avatar" 
+                class="logo flex justify-content-center align-items-center">
+
             <p>{{ authUser?.company?.companyName }}</p>
         </div>
 
@@ -24,7 +28,9 @@
                 class="cursor-pointer" (click)="isShowSidebar = true;">
             <div class="flex justify-content-center align-items-center cursor-pointer" 
                 (click)="memnu.toggle($event)">
-                <img src="../../../assets/images/TopWork-logo.png" class="icon-menu" *ngIf="!authUser?.avatar"/>
+                <div class="icon-menu" *ngIf="!authUser?.avatar">
+                    <img src="../../../assets/images/TopWork-logo.png" width="100%"/>
+                </div>
                 <img [src]="authUser?.avatar" *ngIf="authUser?.avatar" class="icon-menu">
             </div>
         </div>
@@ -57,14 +63,16 @@
     <ng-template pTemplate="content">
         <div class="noti" id="noti">
             <div *ngFor="let i of notifications" (click)="markAsRead(i.id)"
-                class="notification flex align-items-center" [routerLink]="'/jobs/' + i.id +'/applied'"
-                [ngClass]="i.isRead ? 'border-read' : 'border-unread'">
-                <div class="dot" [ngClass]="i.isRead ? 'bg-read border-read' : 'bg-unread border-unread'"></div>
+                class="notification flex align-items-center cursor-pointer" [routerLink]="'/jobs/' + i.jobId +'/applied'"
+                [ngClass]="i.read ? 'border-read' : 'border-unread'">
+                <div class="dot" [ngClass]="i.read ? 'bg-read border-read' : 'bg-unread border-unread'"></div>
             
-                <p [innerHTML]="i.content | translate : {user: parseFullName(i.lastName, i.firstName), jobName: i.jobName}"></p>
+                <p [ngClass]="i.read ? 'text-read' : 'text-unread'" 
+                    [innerHTML]="parseContent(i.content, i.lastName, i.firstName, i.jobName)"></p>
             </div>
         
-            <div id="loadMore" class="loadMore"></div>
+            <div id="loadMore" class="loadMore font-size-13 cursor-pointer" 
+                *ngIf="totalPages > paging.pageNumber" (click)="loadMore()">Load more</div>
         </div>
     </ng-template>
 </p-sidebar>

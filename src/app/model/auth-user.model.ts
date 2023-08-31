@@ -3,10 +3,17 @@ export interface AuthUser {
     avatar: string,
     firstName: string,
     lastName: string,
-    email: string,
+    dateOfBirth: string,
+    gender: string,
     phoneNumber: string,
+    email: string,
+    address: string,
+    yearExperience: string,
+    summary: string,
+    position: string,
+    major: string,
+    link: string,
     status: string,
-    userRole: string,
-    companyId: string
-    company: any
+    role: string,
+    company: any,
 }

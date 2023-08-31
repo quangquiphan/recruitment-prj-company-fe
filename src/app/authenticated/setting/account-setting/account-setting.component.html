@@ -1,6 +1,6 @@
 <div class="flex flex-column align-items-center relative">
     <div class="flex justify-content-start align-items-start" style="position: absolute; top: -138px; right: 27px;">
-        <p-button (click)="onOpen('')" [label]="'button.new' | translate"></p-button>
+        <p-button (click)="onOpen('', '')" [label]="'button.new' | translate"></p-button>
     </div>
     <div class="flex w-full justify-content-center align-items-center account-items" *ngFor="let i of accountMember">
         <div class="w-full company-member">
@@ -21,7 +21,7 @@
                         <p class="font-size-13">{{ parseRole(i?.role) }}</p>
                     </div>
                 </div>
-                <img src="../../../../../assets/images/icons/edit-2.svg" class="cursor-pointer" (click)="onOpen(i?.id)">
+                <img src="../../../../../assets/images/icons/edit-2.svg" class="cursor-pointer" (click)="onOpen(i?.id, i.role)">
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
             <input pInputText type="text" id="email" formControlName="email">
         </div>
 
-        <div class="font-bold">Role</div>
+        <div class="font-bold">{{ 'label.role' | translate }}</div>
 
         <div class="role flex align-items-center" 
             [ngClass]="accountForm.value.role == constant.USER_ROLE.COMPANY_ADMIN_MEMBER?'role-active' : ''">

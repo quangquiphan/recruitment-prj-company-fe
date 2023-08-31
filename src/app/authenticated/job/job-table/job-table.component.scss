@@ -4,6 +4,17 @@
     height: calc(100vh - 50px - 101px - 29px);
 }
 
+.c-avt {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--primary-700);
+    margin: 0 10px 10px 0;
+}
+
 .company-job {
     background-color: var(--primary-50);
     padding: 20px;

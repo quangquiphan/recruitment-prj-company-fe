@@ -37,22 +37,9 @@ export class CompanyService {
   uploadAvatar(id: string, file: File):Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
-    formData.append('file', file);
+    formData.append('avatar', file);
 
     const req = new HttpRequest('PUT', `${_prefix}/upload-avatar/${id}`, formData, {
-      reportProgress: true,
-      responseType: 'json',
-    });    
-
-    return this.http.request(req);
-  }
-  
-  uploadBackground(id: string, file: File):Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
-
-    formData.append('file', file);
-
-    const req = new HttpRequest('PUT', `${_prefix}/upload-background/${id}`, formData, {
       reportProgress: true,
       responseType: 'json',
     });    

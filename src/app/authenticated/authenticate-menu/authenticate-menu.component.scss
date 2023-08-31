@@ -76,14 +76,12 @@
             .icon-menu {
                 width: 30px;
                 height: 30px;
-                border: 2px solid var(--primary-700);
+                border: 1px solid var(--primary-700);
                 border-radius: 50%;
                 background-color: var(--white);
-
-                span {
-                    font-size: 20px;
-                    color: var(--white);
-                }
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
 
@@ -91,7 +89,7 @@
             z-index: 1000;
             position: relative;
             min-width: calc(915px - 280px);
-            height: calc(100vh - 50px);
+            min-height: calc(100vh - 50px);
             overflow-x: hidden;
             overflow-y: hidden;
             background-color: var(--white);
@@ -118,27 +116,35 @@
     margin-bottom: 10px;
 
     .dot {
-        width: 7px;
+        width: 9px;
         height: 7px;
         margin-right: 10px;
         border-radius: 50%;
     }
 }
 
-.border-read {
+.border-unread {
     border: 1px solid var(--primary-700);
 }
 
-.border-unread {
+.border-read {
     border: 1px solid var(--gray-700);
 }
 
-.bg-read {
+.bg-unread {
     background-color: var(--primary-700);
 }
 
-.bg-unread {
+.bg-read {
     background-color: var(--gray-700);
+}
+
+.text-read {
+    color: var(--gray-700) !important;
+}
+
+.text-unread {
+    color: var(--primary-700) !important;
 }
 
 :host::ng-deep {

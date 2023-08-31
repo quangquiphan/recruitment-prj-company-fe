@@ -1,34 +1,65 @@
-<div class="user-job-applicant">
-    <div class="flex justify-content-between w-full" *ngFor="let u of users">
-        <div class="flex flex-column" style="width: 78%;">
-            <div class="flex align-items-center cursor-pointer"
-                (click)="openPoup(u.id)">
-                <div class="icon flex justify-content-center align-items-center"
-                    [ngClass]="u.avatar?'' : 'icon-bg'">
-                    <span *ngIf="!u.avatar">QP</span>
-                    <img *ngIf="u.avatar" src="../../../../../assets/images/TopWork-logo.png" alt="">
+<div class="user-job-applicants">
+    <div *ngFor="let u of users" class="w-full">
+        <div class="time">
+            <span class="font-size-13"
+                [innerHTML]="parseLabelDate(u.jobStatus, u.createdDate, u.lastName, u.firstName)">
+            </span>
+        </div>
+        <div class="flex flex column justify-content-between w-full user-job-applicant-item">
+            <div class="flex flex-column w-full">
+                <div class="justify-content-between flex align-items-center">
+                    <div class="flex align-items-center cursor-pointer" 
+                        (click)="openPoup(u.userId)" style="margin-bottom: 10px;">
+                        <img *ngIf="u.avatar" [src]="u?.avatar" class="icon">
+                        <div class="icon">
+                            <img *ngIf="!u.avatar" src="../../../../../assets/images/TopWork-logo.png" width="100%">
+                        </div>
+                        <div>
+                            <h4>{{ u.lastName + ' ' + u.firstName }}</h4>
+                            <p style="margin-bottom: 0;">{{ u.position }}</p>
+                        </div>
+                    </div>
+
+                    <p-button [label]="'button.reject' | translate"
+                        (onClick)="parseLabelRejectCandidate(u.lastName, u.firstName, u.id)"></p-button>
                 </div>
-                <div>
-                    <h4>{{ u.fullName }}</h4>
-                    <p style="margin-bottom: 0;">{{ u.position }}</p>
+        
+                <div style="margin-bottom: 10px;" class="flex align-items-center">
+                    <span style="margin-right: 10px;" class="font-size-13">
+                        {{ 'label.year_experience' | translate }}:
+                    </span>
+                    <p class="font-size-13">{{ parseYearExperience(u.yearExperience) }}</p>
                 </div>
-            </div>
-    
-            <p>{{ 'Year experience : ' + u.yearExperience}}</p>
-            <div class="flex flex-wrap">
-                <p-chip *ngFor="let item of u.skills">{{ item.name }}</p-chip>
-                <p-chip *ngFor="let item of u.languages">{{ item.name }}</p-chip>
+                <div class="flex flex-wrap">
+                    <p-chip *ngFor="let item of u.skills">{{ item.name }}</p-chip>
+                    <p-chip *ngFor="let item of u.languages">{{ item.name }}</p-chip>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<p-paginator [rows]="paging.pageSize" [first]="first" [totalRecords]="totalElements"
-    (onPageChange)="onPageChange($event)" *ngIf="totalElements > paging.pageSize">
-</p-paginator>
+<p-paginator *ngIf="totalElements > paging.pageSize" (onPageChange)="onReload.emit($event)" 
+    [rows]="paging.pageSize" [totalRecords]="totalElements" [first]="first"></p-paginator>
 
 <p-dialog [(visible)]="showUserDetail" [draggable]="false" class="user-detail-popup" 
     [showHeader]="false">
     <i class="lose-popup pi pi-times-circle cursor-pointer" (click)="showUserDetail = false"></i>
     <app-user-info *ngIf="showUserDetail" [userId]="userId"></app-user-info>
+</p-dialog>
+
+<p-dialog class="custom-dialog" [(visible)]="isRejectCandiate" 
+    (onHide)="isRejectCandiate = false; message = ''" [draggable]="false"
+    [header]="'label.confirm_reject_candidate' | translate">
+    <div style="padding-top: 30px; margin-bottom: 30px;" class="flex justify-content-center">
+        <p>{{ message }}</p>
+    </div>
+
+    <div class="flex justify-content-center align-items-center btn">
+        <p-button class="submit" [label]="'button.reject' | translate"
+            (onClick)="onReject()"></p-button>
+        <p-button [label]="'button.cancel' | translate"
+            [ngClass]="'btn-delete'" (onClick)="isRejectCandiate = false; message = ''">
+        </p-button>
+    </div>
 </p-dialog>

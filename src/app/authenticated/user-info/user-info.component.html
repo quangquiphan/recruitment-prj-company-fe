@@ -12,8 +12,7 @@
                 <div class="deliver" style="margin-bottom: 3px;"></div>
                 <h4 style="margin-bottom: 3px;">{{ candidate?.title }}</h4>
                 <span>
-                    {{ (candidate?.yearExperience > 1 ? 'label.year_experiences':'label.year_experience') | translate 
-                        :{year: getYearExperience(candidate?.yearExperience)} }}
+                    {{ parseYearExperience(candidate?.yearExperience) }}
                 </span>
             </div>
         </div>
@@ -21,7 +20,7 @@
         <div *ngIf="candidate?.summary">
             <h1 class="boder-text flex align-items-center">
                 <img class="i" src="../../../../assets/images/icons/archive-minus.svg" alt="">
-                <span>summary</span>
+                <span>{{ 'label.summary' | translate }}</span>
             </h1>
     
             <p [innerHTML]="candidate?.summary"></p>
@@ -31,7 +30,7 @@
             <div>
                 <h1 class="boder-text flex align-items-center">
                     <img src="../../../../assets/images/icons/info-circle.svg" alt="" class="i">
-                    <span>Information</span>
+                    <span>{{ 'label.information' | translate }}</span>
                 </h1>
                 <div class="flex align-items-center" *ngIf="candidate?.gender">
                     <img src="../../../../assets/images/icons/gender.svg" style="margin: 0 5px 5px 0;" alt="">
@@ -62,7 +61,7 @@
             <div *ngIf="candidate?.educations.length>0">
                 <h1 class="boder-text flex align-items-center">
                     <img src="../../../../assets/images/icons/buliding.svg" alt="">
-                    <span>Education</span>
+                    <span>{{ 'label.education' | translate }}</span>
                 </h1>
 
                 <div class="flex flex-column w-full relative education-data" 
@@ -70,9 +69,11 @@
                     <div class="w-full">
                         <div class="flex w-full justify-content-between align-items-center">
                             <h3>{{ item.schoolName }}</h3>
-                            <span>{{ item.fromDate + " - " + (item.current? 'Now' : item.toDate)}}</span>
+                            <span>
+                                {{ parseFromAndToDate(item.fromDate, item.toDate, item.current) }}
+                            </span>
                         </div>
-                        <p>{{ 'Major : ' + item.course }}</p>
+                        <p>{{ 'Major : ' + item.major }}</p>
                         <p [innerHTML]="item.description"></p>
                     </div>
                 </div>
@@ -82,7 +83,7 @@
         <div class="w-full work-history" *ngIf="candidate?.workHistories.length>0">
             <h1 class="boder-text flex align-items-center">
                 <img src="../../../../assets/images/icons/briefcase.svg" alt="">
-                <span>Work history</span>
+                <span>{{ 'label.work_history' | translate }}</span>
             </h1>
     
             <div class="flex flex-column w-full relative work-history-data" 
@@ -94,16 +95,18 @@
                             <img src="../../../../assets/images/icons/buliding.svg" style="margin-right: 5px;">
                             <h3>{{ item.companyName }}</h3>
                         </div>
-                        <span>{{ item.fromDate + " - " + item.toDate}}</span>
+                        <span>{{ parseFromAndToDate(item.fromDate, item.toDate, item.current) }}</span>
                     </div>
                     <h4>{{ item.position }}</h4>
                     <p [innerHTML]="item.description"></p>
                 </div>
     
-                <div class="project" *ngIf="item.projects.length>0">
+                <div class="project" *ngIf="item.projects.length > 0">
                     <h3 class="boder-text flex align-items-center" style="margin-bottom: 15px">
                         <img src="../../../../assets/images/icons/clipboards.svg" style="margin-right: 5px">
-                        <span>Projects</span>
+                        <span>
+                            {{ (item.projects.length > 1 ? 'label.projects' : 'label.project') | translate }}
+                        </span>
                     </h3>
                     <div class="flex flex-column"  *ngFor="let p of item.projects">
                         <div class="flex w-full justify-content-between align-items-center">
@@ -111,7 +114,7 @@
                                 <img src="../../../../assets/images/icons/clipboard.svg" style="margin-right: 5px;">
                                 <h3>{{ p.projectName }}</h3>
                             </div>
-                            <span>{{ p.fromDate + " - " + p.toDate}}</span>
+                            <span>{{ parseFromAndToDate(p.fromDate, p.toDate, false) }}</span>
                         </div>
                         <h4>{{ p.position }}</h4>
                         <span>{{ 'Team size : ' + p.teamSize }}</span>
@@ -122,15 +125,18 @@
             </div>
         </div>
      
-        <div>
+        <div *ngIf="candidate?.skills || candidate?.languages">
             <h1 class="boder-text flex align-items-center">
                 <img src="../../../../assets/images/icons/task.svg">
-                <span>Skill</span>
+                <span>
+                    {{ ((candidate?.skills.length > 1 || candidate?.languages.length > 1) ? 
+                        'label.skills' : 'label.skills') | translate }}
+                </span>
             </h1>
 
             <div class="flex flex-wrap">
-                <p-chip class="item" *ngFor="let i of skill">{{ i.name }}</p-chip>
-                <p-chip class="item" *ngFor="let i of language">{{ i.name }}</p-chip>
+                <p-chip class="item" *ngFor="let i of candidate?.skills">{{ i.name }}</p-chip>
+                <p-chip class="item" *ngFor="let i of candidate?.languages">{{ i.name }}</p-chip>
             </div>
         </div>
     </div>

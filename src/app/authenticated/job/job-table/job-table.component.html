@@ -10,16 +10,38 @@
     <div class="w-full company-job cursor-pointer" *ngFor="let job of jobs" [routerLink]="'/jobs/' + job.id" 
     [ngClass]="checkExpiryDateJob(job.expiryDate)?'company-job-expiry' : ''"> 
         <div class="flex flex-column w-full"> 
-            <div class="flex w-full justify-content-between align-items-center"> 
-                <h3>{{job.jobName}}</h3> 
+            <div class="flex justify-content-between">
+                <div class="flex align-items-center">
+                    <div class="c-avt" *ngIf="!job.companyAvatar">
+                        <img src="../../../../assets/images/TopWork-logo.png" width="100%">
+                    </div>
+    
+                    <img *ngIf="job.companyAvatar" [src]="job.companyAvatar" class="c-avt">
+                    <div>
+                        <h3 style="margin-bottom: 3px;">{{job.jobName}}</h3> 
+                        <h4>{{job.jobPosition}}</h4> 
+                    </div>
+                </div>
+                
                 <div class="flex align-items-center"> 
                     <img src="../../../../../assets/images/icons/clock.svg" 
                         style="margin-right: 10px;"> 
                     <span>{{ parseDate(job.expiryDate) }}</span> 
-                </div> 
-            </div> 
-            <h4>{{job.jobPosition}}</h4> 
-            <span>{{ parseSalary(job.salary) }}</span> 
+                </div>
+            </div>
+            
+            <div class="flex align-items-center"> 
+                <img src="../../../../../assets/images/icons/dollar-circle.svg" 
+                    style="margin-right: 10px;"> 
+                <span>{{ parseSalary(job.salary) }}</span> 
+            </div>
+            
+            <div class="flex align-items-center"> 
+                <img src="../../../../../assets/images/icons/location.svg" 
+                    style="margin-right: 10px;"> 
+                <span>{{ job.city }}</span> 
+            </div>
+
             <div class="flex flex-wrap"> 
                 <p-chip *ngFor="let skill of job.skills" class="flex align-items-center"> 
                     <span class="skill-name">{{skill.name}}</span> 

@@ -58,47 +58,10 @@ export class AuthenticateMenuComponent implements OnInit{
     companyId: '',
     filter: 'ALL',
     pageNumber: 1,
-    pageSize: 30
-  }
-
-  item: any = [
-    {
-      id: 1
-    },
-    {
-      id: 2
-    },
-    {
-      id: 3
-    },
-    {
-      id: 4
-    },
-    {
-      id: 5
-    },
-    {
-      id: 6
-    },
-    {
-      id: 7
-    },
-    {
-      id: 8
-    },
-    {
-      id: 9
-    },
-    {
-      id: 10
-    },
-    {
-      id: 11
-    },
-    {
-      id: 12
-    },
-  ]
+    pageSize: 20
+  };
+  totalElements: number = 0;
+  totalPages: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -134,15 +97,13 @@ export class AuthenticateMenuComponent implements OnInit{
         Validators.required,
         Validators.pattern(AppConstant.PATTERNS.PASSWORD)
       ]]
-    }),
+    })
 
     this.gender = AppData.getGender(translateService);
     this.majors = AppData.getMajor(translateService);
   }
 
   ngOnInit(): void {
-    this.paging.companyId = this.authUser?.company.id;
-    
     this.getInfo();
     this.initMenu();
     
@@ -167,7 +128,7 @@ export class AuthenticateMenuComponent implements OnInit{
         id: "UN_READ",
         label: this.translateService.instant('label.un_read')
       }
-    ]
+    ];
   }
 
   onSignOut() {
@@ -177,6 +138,7 @@ export class AuthenticateMenuComponent implements OnInit{
           this.authenticatService.deleteToken();
           this.authenticatService.clearSession();
           this.authenticatService.doResetAuthUser();
+          this._router.navigate(['/sign-in']).then(r => {});
         }
       }
     )
@@ -233,7 +195,8 @@ export class AuthenticateMenuComponent implements OnInit{
   onFilterNoti(ev?: any) {
     if (ev) {
       this.paging.filter = ev.value;
-    } 
+    }
+    this.notifications = [];
     this.getAllNotification(this.paging);
   }
 
@@ -241,6 +204,7 @@ export class AuthenticateMenuComponent implements OnInit{
     return this.notificationService.markAllAsRead(this.paging.companyId).subscribe(
       res => {
         if (res.status == 200) {
+          this.notifications = [];
           this.getAllNotification(this.paging);
         }
       }
@@ -251,10 +215,16 @@ export class AuthenticateMenuComponent implements OnInit{
     return this.notificationService.markAsRead(id).subscribe(
       res => {
         if (res.status === 200) {
+          this.notifications = [];
           this.getAllNotification(this.paging);
         }
       }
     )
+  }
+
+  loadMore() {
+    this.paging.pageNumber += 1;
+    this.getAllNotification(this.paging);
   }
 
   initMenu() {
@@ -286,6 +256,8 @@ export class AuthenticateMenuComponent implements OnInit{
 
   getInfo() {
     this.authUser = this.authenticatService.authUser;
+    this.paging.companyId = this.authUser?.company.id;
+    this.getAllNotification(this.paging);
   }
 
   getProfileUser() {
@@ -316,11 +288,15 @@ export class AuthenticateMenuComponent implements OnInit{
   }
 
   getAllNotification(paging: any) {
-    return this.notificationService.getAllNotificationByCompany(this.paging)
+    return this.notificationService.getAllNotificationByCompany(paging)
       .subscribe(
         res => {
           if (res.status === 200) {
-            this.notifications = res.data.content;            
+            res.data.content.forEach((element: any) => {
+              this.notifications.push(element)
+            });
+            this.totalElements = res.data.totalElements;
+            this.totalPages = res.data.totalPages;        
           }
         }
       )
@@ -349,5 +325,10 @@ export class AuthenticateMenuComponent implements OnInit{
 
   parseFullName(lastName: string, firstName: string) {
     return lastName + ' ' + firstName;
+  }
+
+  parseContent(content: string, lastName: string, firstName: string, position: string) {
+    return this.translateService.instant(`message.${content}`, 
+      {name: this.parseFullName(lastName, firstName), position: position});
   }
 }

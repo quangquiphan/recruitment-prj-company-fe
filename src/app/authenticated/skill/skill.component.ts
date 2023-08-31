@@ -95,8 +95,6 @@ export class SkillComponent implements OnInit{
     return this.skillService.getSkill(id).subscribe(
       res => {
         if (res.status === 200) {
-          console.log(res.data);
-          
           this.skillForm.patchValue({
             skillName: res.data.skillName
           })       

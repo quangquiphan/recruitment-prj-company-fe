@@ -26,8 +26,8 @@
     <p-tabPanel *ngFor="let tab of tabViews" [selected]="tab.index === selectedTab" 
         [header]="tab.label | translate">
         <app-job-general *ngIf="tab.tab == 0" [job]="job"></app-job-general>
-        <app-job-infor *ngIf="tab.tab != 0" [users]="users" [paging]="paging"
-            [totalElements]="totalElements" [totalPages]="totalPages"></app-job-infor>
+        <app-job-infor *ngIf="tab.tab != 0" [users]="userShow" [paging]="paging"
+            [totalElements]="totalElements" (onReload)="onReload($event)"></app-job-infor>
     </p-tabPanel>
 </p-tabView>
 

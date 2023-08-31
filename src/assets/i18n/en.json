@@ -57,7 +57,16 @@
         "company_name": "Company name",
         "website": "Website",
         "company_size": "Company size",
-        "edit_company": "Edit company"
+        "edit_company": "Edit company",
+        "year_experience": "Year experience",
+        "confirm_reject_candidate": "Confirm reject candidate",
+        "expiry_date": "Expiry date",
+        "summary": "Summary",
+        "work_history": "Work history",
+        "project": "Project",
+        "projects": "Projects",
+        "now": "Now",
+        "role": "Role"
     },
     "message": {
         "success": "Success",
@@ -92,7 +101,14 @@
         "update_information_failed": "Update information failed!",
         "update_information_successfully": "Update information successfully!",
         "update_company_successfully": "Update company successfully!",
-        "update_company_failed": "Update company failed!"
+        "update_company_failed": "Update company failed!",
+        "APPLIED_JOB": "<b>{{name}}</b> has applied for the <b>{{position}}</b> position",
+        "requested_on_date": "<b>{{name}}</b> has applied on {{date}}",
+        "rejected_on_date": "<b>{{name}}</b> was rejected applied on {{date}}",
+        "do_you_wanna_reject_candidate": "Do you wanna reject candidate {{candidate}}?",
+        "reject_candidate_successfully": "Reject candidate successfully!",
+        "reject_candidate_failed": "Reject candidate failed!",
+        "permission_access_denied": "Permission access denied!"
     },
     "button": {
         "sign_in": "Sign in",
@@ -102,7 +118,8 @@
         "edit": "Edit",
         "delete": "Delete",
         "submit": "Submit",
-        "new": "New"
+        "new": "New",   
+        "reject": "Reject"
     },
     "SIZE": {
         "FORM_11_TO_25": "11 - 25",
@@ -112,14 +129,14 @@
         "OVER_1000": "> 1000"
     },
     "YEAR_EXPERIENCE": {
-        "NON_EXPERIENCE": "0", 
-        "UNDER_1_YEAR": "0 - 1", 
-        "ONE_YEAR": "1", 
-        "TWO_YEAR": "2", 
-        "THREE_YEAR": "3", 
-        "FOUR_YEAR": "4", 
-        "FIVE_YEAR": "5", 
-        "OVER_FIVE_YEAR": "5+"
+        "NON_EXPERIENCE": "0 year", 
+        "UNDER_1_YEAR": "Under 1 year", 
+        "ONE_YEAR": "1 year", 
+        "TWO_YEAR": "2 year", 
+        "THREE_YEAR": "3 year", 
+        "FOUR_YEAR": "4 year", 
+        "FIVE_YEAR": "5 year", 
+        "OVER_FIVE_YEAR": "5+ year"
     },
     "major": {
         "it": "IT",

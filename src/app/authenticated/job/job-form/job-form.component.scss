@@ -25,11 +25,11 @@ img {
     }
 
     p-calendar .p-button {
-        background: none !important;
         border-radius: 0 6px 6px 0 !important;
-    }
+        min-width: unset !important;
 
-    p-calendar .p-button:hover:enabled {
-        background: none !important;
+        .p-icon {
+            color: var(--white) !important;
+        }
     }
 }

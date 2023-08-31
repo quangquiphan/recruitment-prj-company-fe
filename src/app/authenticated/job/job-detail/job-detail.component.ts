@@ -21,10 +21,10 @@ export class JobDetailComponent implements OnInit{
   jobStatus: string = ''
   job: Job | undefined;
   users: any[] = [];
+  userShow: any[] = [];
   isShowPopupForm: boolean = false;
   isShowConfirmDeletePopup = false;
   totalElements: number = 0;
-  totalPages: number = 0;
   paging: any = {
     jobId: '',
     pageNumber: 1,
@@ -71,6 +71,23 @@ export class JobDetailComponent implements OnInit{
         }
       }
     )
+  }
+
+  onReload(ev: any) {
+    this.userShow = [];
+
+    if (ev) {
+      this.paging.pageNumber = ev.first/ev.rows + 1;
+    }
+
+    for (let i = 0; i < this.users.length; i++) {
+      if (i >= (this.paging.pageNumber - 1) 
+          && i < (this.paging.pageNumber * this.paging.pageSize)) {
+        this.userShow.push(this.users[i]);
+      }
+    }
+
+    return this.userShow;
   }
 
   onOpen(ev: any) {
@@ -137,17 +154,21 @@ export class JobDetailComponent implements OnInit{
     this.activatedTabView(this.selectedTab);
   }
 
-  getUser(jobStatus: string) {
-    console.log(jobStatus);
-    
-    return this.userJobService.getUser(jobStatus, this.paging).subscribe(
+  getUserApplicant(status: string) {
+    this.users = [];
+    this.userShow = [];
+    return this.userJobService.getUser(status, this.paging).subscribe(
       res => {
         if (res.status === 200) {
-          console.log(res.status);
-          
-          this.users = res.data.content;
-          this.totalPages = res.data.totalPages;
-          this.totalElements = res.data.totalElements;
+          this.users = res.data;
+          this.totalElements = res.data.length;
+
+          for (let i = 0; i < this.users.length; i++) {
+            if (i >= (this.paging.pageNumber - 1) 
+              && i < (this.paging.pageNumber * this.paging.pageSize)) {
+              this.userShow.push(this.users[i]);
+            }
+          }
         }
       }
     )
@@ -163,19 +184,19 @@ export class JobDetailComponent implements OnInit{
     if (selectedTab === 1) {
       this.jobStatus = AppConstant.JOB_STATUS.APPLIED;
       tab = "applied";
-      this.getUser(this.jobStatus);
+      this.getUserApplicant(this.jobStatus);
     }
     
     if (selectedTab === 2) {
       this.jobStatus = AppConstant.JOB_STATUS.REJECTED;
       tab = "rejected";
-      this.getUser(this.jobStatus);
+      this.getUserApplicant(this.jobStatus);
     }
 
     return this._router.navigate([`/jobs/${this.jobId}/${tab}`]).then(r => {});
   }
 
   parseDate(date: string) {
-    return moment(moment((date), 'DD-MM-YYYY').toDate()).format("DD-MM-YYYY");
+    return moment(date).format(AppConstant.DATE_FORMAT.GET);
   }
 }

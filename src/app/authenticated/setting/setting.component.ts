@@ -30,7 +30,7 @@ export class SettingComponent implements OnInit{
 
   ngOnInit(): void {
     this.companyId = this.authenticateService.authUser?.company.id || '';
-    this.userRole = this.authenticateService.authUser?.userRole || '';    
+    this.userRole = this.authenticateService.authUser?.role || '';    
     this.selectedTabViewUrl();
   }
 

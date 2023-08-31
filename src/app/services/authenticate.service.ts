@@ -65,7 +65,7 @@ export class AuthenticateService {
     }
 
     logout(): Observable<HttpResponse> {
-        return this.http.delete<HttpResponse>(`${_prefix}/sign-out`).pipe(
+        return this.http.delete<HttpResponse>(`${_prefix}/logout`).pipe(
             map(
                 (result) => {
                     return result;

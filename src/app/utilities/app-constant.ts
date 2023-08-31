@@ -52,6 +52,12 @@ const AppConstant = Object.freeze({
     },
     ACCOUNT_TYPE: {
       COMPANY: "COMPANY"
+    },
+    DATE_FORMAT: {
+      POST: "YYYY-MM-DD",
+      MONTH_YEAR: "MM/YYYY",
+      GET: "DD-MM-YYYY",
+      SHORT_DATE: "DD/MM/YYYY"
     }
 });
 

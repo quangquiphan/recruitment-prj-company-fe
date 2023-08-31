@@ -97,7 +97,7 @@ export class JobFormComponent implements OnInit{
       city: data.city || '',
       categoryJob: data.categoryJob || '',
       address: data.address || '',
-      expiryDate: moment(moment(data.expiryDate, 'DD-MM-YYYY').toDate()).format("DD-MM-YYYY")
+      expiryDate: moment(data.expiryDate).format(AppConstant.DATE_FORMAT.GET)
     })
   }
 
@@ -193,7 +193,8 @@ export class JobFormComponent implements OnInit{
       city: this.jobForm.value.city,
       company_id: this.companyId,
       description: this.jobForm.value.description,
-      expiry_date: moment(this.jobForm.value.expiryDate).format("DD-MM-YYYY"),
+      expiry_date: moment(moment(this.jobForm.value.expiryDate, AppConstant.DATE_FORMAT.GET).toDate())
+        .format(AppConstant.DATE_FORMAT.POST),
       job_name: this.jobForm.value.jobName,
       job_position: this.jobForm.value.jobPosition,
       languages: this.languages.value,

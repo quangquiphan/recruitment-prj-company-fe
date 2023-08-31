@@ -1,3 +1,4 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -92,5 +93,26 @@ export class CompanySettingComponent implements OnInit{
 
   parseSize(size: string) {
     return this.translateService.instant(`SIZE.${size}`);
+  }
+
+  selectedAvatar(ev: any) {
+    if (ev) {
+      let file = ev.target.files[0];
+      console.log(file);
+      
+      return this.uploadAvatar(file);
+    }
+    return;
+  }
+
+  uploadAvatar(file: any) {
+    return this.companyService.uploadAvatar(this.companyId || '', file).subscribe({
+      next: (event : any) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.getCompanyDetail();
+          // window.location.reload();
+        }
+      }
+    })
   }
 }
