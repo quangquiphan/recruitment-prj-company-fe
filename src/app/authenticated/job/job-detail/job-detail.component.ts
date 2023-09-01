@@ -18,7 +18,6 @@ import AppUtil from 'src/app/utilities/app-util';
 export class JobDetailComponent implements OnInit{
   selectedTab: number = 0;
   jobId: string = '';
-  jobStatus: string = ''
   job: Job | undefined;
   users: any[] = [];
   userShow: any[] = [];
@@ -57,7 +56,7 @@ export class JobDetailComponent implements OnInit{
   ngOnInit(): void {
     this.jobId = this.activatedRoute.snapshot.paramMap.get("id") || '';
     this.paging.jobId = this.jobId;
-    this.selectedTabViewUrl();
+    this.selectedTabViewUrl(this._router.routerState.snapshot.url);
     this.getJobDetail(this.jobId);
   }
 
@@ -128,14 +127,14 @@ export class JobDetailComponent implements OnInit{
     }
   }
 
-  selectedTabViewUrl() {
-    let arr = toArray(this._router.routerState.snapshot.url.split("/"))
+  selectedTabViewUrl(url: string) {
+    let arr = toArray(url.split("/"))
     const map = new Map();
     
     if (arr.length === 3) {
       arr.push();
     }
-
+    
     map.set('tab', arr[3]);
 
     if (map.get('tab') === 'general' || !map.get('tab')) {
@@ -182,15 +181,13 @@ export class JobDetailComponent implements OnInit{
     } 
     
     if (selectedTab === 1) {
-      this.jobStatus = AppConstant.JOB_STATUS.APPLIED;
       tab = "applied";
-      this.getUserApplicant(this.jobStatus);
+      this.getUserApplicant(tab);
     }
     
     if (selectedTab === 2) {
-      this.jobStatus = AppConstant.JOB_STATUS.REJECTED;
       tab = "rejected";
-      this.getUserApplicant(this.jobStatus);
+      this.getUserApplicant(tab);
     }
 
     return this._router.navigate([`/jobs/${this.jobId}/${tab}`]).then(r => {});

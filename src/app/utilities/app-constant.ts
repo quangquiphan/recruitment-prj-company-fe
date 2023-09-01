@@ -32,9 +32,9 @@ const AppConstant = Object.freeze({
       IN_ACTIVE: "IN_ACTIVE"
     },
     JOB_STATUS: {
-      MATCHES: "matches",
-      APPLIED: "applied",
-      REJECTED: "rejected",
+      MATCHES: "MATCHES",
+      APPLIED: "APPLIED",
+      REJECTED: "REJECTED",
     },
     USER_ROLE: {
       ADMIN: "ADMIN",

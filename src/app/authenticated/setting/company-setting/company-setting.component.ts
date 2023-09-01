@@ -98,7 +98,6 @@ export class CompanySettingComponent implements OnInit{
   selectedAvatar(ev: any) {
     if (ev) {
       let file = ev.target.files[0];
-      console.log(file);
       
       return this.uploadAvatar(file);
     }

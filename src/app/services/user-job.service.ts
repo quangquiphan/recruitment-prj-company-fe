@@ -25,7 +25,7 @@ export class UserJobService {
   }
 
   changeJobStatus(params: any) : Observable<HttpResponse> {
-    return this.http.put<HttpResponse>(`${_prefix}`, {params}).pipe(
+    return this.http.put<HttpResponse>(`${_prefix}`, params).pipe(
       map(
         result => {
           return result;

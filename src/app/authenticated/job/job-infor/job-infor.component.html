@@ -1,15 +1,16 @@
 <div class="user-job-applicants">
     <div *ngFor="let u of users" class="w-full">
-        <div class="time">
-            <span class="font-size-13"
-                [innerHTML]="parseLabelDate(u.jobStatus, u.createdDate, u.lastName, u.firstName)">
+        <div class="time" [ngClass]="(u.jobStatus == appConstant.JOB_STATUS.REJECTED) ? 'time-reject' : ''">
+            <span class="font-size-13" [ngClass]="(u.jobStatus == appConstant.JOB_STATUS.REJECTED) ? 'text-reject' : ''"
+                [innerHTML]="parseLabelDate(u)">
             </span>
         </div>
-        <div class="flex flex column justify-content-between w-full user-job-applicant-item">
+        <div class="flex flex column justify-content-between w-full user-job-applicant-item"
+        [ngClass]="(u.jobStatus == appConstant.JOB_STATUS.REJECTED) ? 'user-job-applicant-item-reject' : ''">
             <div class="flex flex-column w-full">
                 <div class="justify-content-between flex align-items-center">
                     <div class="flex align-items-center cursor-pointer" 
-                        (click)="openPoup(u.userId)" style="margin-bottom: 10px;">
+                        (click)="openPoup(u)" style="margin-bottom: 10px;">
                         <img *ngIf="u.avatar" [src]="u?.avatar" class="icon">
                         <div class="icon">
                             <img *ngIf="!u.avatar" src="../../../../../assets/images/TopWork-logo.png" width="100%">
@@ -20,7 +21,7 @@
                         </div>
                     </div>
 
-                    <p-button [label]="'button.reject' | translate"
+                    <p-button [label]="'button.reject' | translate" *ngIf="u.jobStatus !== appConstant.JOB_STATUS.REJECTED"
                         (onClick)="parseLabelRejectCandidate(u.lastName, u.firstName, u.id)"></p-button>
                 </div>
         

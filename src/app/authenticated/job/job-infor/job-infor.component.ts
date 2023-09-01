@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
+import { CandidateService } from 'src/app/services/candidate.service';
 import { UserJobService } from 'src/app/services/user-job.service';
 import AppConstant from 'src/app/utilities/app-constant';
 import AppUtil from 'src/app/utilities/app-util';
@@ -22,17 +24,20 @@ export class JobInforComponent implements OnInit{
     pageSize: 10
   }
   @Output() onReload: EventEmitter<any> = new EventEmitter();
+  @Output() onReloadPage: EventEmitter<any> = new EventEmitter();
   showUserDetail: boolean = false;
   first: number = 0;
   userId: string = '';
   isRejectCandiate: boolean = false;
   message: string = '';
   userJobId: string = '';
+  appConstant = AppConstant;
 
   constructor(
     private userJobService: UserJobService,
     private messageService: MessageService,
     private translateService: TranslateService,
+    private candidateService: CandidateService,
   ) {}
 
   ngOnInit(): void {
@@ -46,8 +51,21 @@ export class JobInforComponent implements OnInit{
     this.paging.pageNumber = this.first + 1;
   }
 
-  openPoup(id: string) {
-    return [this.userId = id, this.showUserDetail = true];
+  openPoup(user: any) {
+    if (user.cv || user.cv !== '') {
+      return this.openPdf(user.userId);
+    }
+
+    return [this.userId = user.userId, this.showUserDetail = true];
+  }
+
+  openPdf(id: string) {
+    this.candidateService.downloadPDF(id).subscribe(
+      (res : any) => {
+        const fileUrl = URL.createObjectURL(res);
+        window.open(fileUrl, "mozillaWindow", "popup");
+      }
+    )
   }
 
   onReject() {
@@ -55,10 +73,11 @@ export class JobInforComponent implements OnInit{
       userJobId: this.userJobId,
       status: AppConstant.JOB_STATUS.REJECTED
     }
-
-    return this.userJobService.changeJobStatus(params).subscribe(
+    
+    return this.userJobService.changeJobStatus(AppUtil.toSnakeCaseKey(params)).subscribe(
       res => {
         if (res.status === 200) {
+          this.onReloadPage.emit(`/jobs/${this.paging.jobId}/rejected`)
           this.isRejectCandiate = false;
           this.message = '';
           AppUtil.getMessageSuccess(this.messageService, this.translateService,
@@ -80,14 +99,14 @@ export class JobInforComponent implements OnInit{
     return moment(moment(date).subtract(7, 'hours')).format('DD-MM-YYYY HH:mm');
   }
 
-  parseLabelDate(jobStatus: string, date: string, lastName: string, firstName: string) {
-    if (jobStatus === AppConstant.JOB_STATUS.APPLIED) {
+  parseLabelDate(u: any) {
+    if (u.jobStatus === AppConstant.JOB_STATUS.APPLIED) {
       return this.translateService.instant('message.requested_on_date', 
-        {name: lastName + ' ' + firstName, date: this.parseDate(date)});
+        {name: u.lastName + ' ' + u.firstName, date: this.parseDate(u.createdDate)});
     }
 
     return this.translateService.instant('message.rejected_on_date', 
-      {name: lastName + ' ' + firstName, date: this.parseDate(date)});
+      {name: u.lastName + ' ' + u.firstName, date: this.parseDate(u.updatedDate)});
   }
 
   parseLabelRejectCandidate(lastName: string, firstName: string, id: string) {

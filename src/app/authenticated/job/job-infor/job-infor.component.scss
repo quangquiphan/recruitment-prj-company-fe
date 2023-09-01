@@ -34,6 +34,15 @@
         background-color: var(--primary-100);
     }
 
+    .time-reject {
+        border: 1px solid var(--red-200);
+        background-color: var(--red-100);
+    }
+
+    .text-reject {
+        color: var(--red-500) !important;
+    }
+
     & .user-job-applicant-item > div {
         border: 1px solid var(--primary-600);
         background-color: var(--primary-50);
@@ -58,4 +67,25 @@
 
 .user-detail-popup .p-dialog-mask {
     background-color: rgba(69, 97, 97, 0.7) !important;
+}
+
+:host::ng-deep {
+    & .user-job-applicant-item-reject > div {
+        border: 1px solid var(--red-500) !important;
+        background-color: var(--red-50);
+
+        .icon {
+            border: 1px solid var(--red-500);
+        }
+
+        h4, p, span {
+            color: var(--red-500) !important;
+        }
+
+        & > div:last-child .p-chip {
+            border: 1px solid var(--red-500) !important;
+            background-color: var(--red-50) !important;
+            color: var(--red-500) !important;
+        }
+    }
 }
