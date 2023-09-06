@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
@@ -18,10 +17,11 @@ export class AccountSettingComponent implements OnInit{
   @Input() userRole: string = '';
   accountForm: FormGroup = new FormGroup({});
   accountMember: any[] = [];
+  listAccount: any[] = [];
   paging: any = {
     companyId: '',
     pageNumber: 1,
-    pageSize: 10
+    pageSize: 5
   }
   disable: boolean = false;
   label: string = '';
@@ -36,7 +36,6 @@ export class AccountSettingComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private translateService: TranslateService,
     private authenticateService: AuthenticateService,
@@ -45,7 +44,7 @@ export class AccountSettingComponent implements OnInit{
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.pattern(AppConstant.PATTERNS.EMAIL)],
-      role: [this.constant.USER_ROLE.COMPANY_ADMIN],
+      role: [this.constant.USER_ROLE.COMPANY_MEMBER],
       companyId: ['']
     })
   }
@@ -56,7 +55,11 @@ export class AccountSettingComponent implements OnInit{
   }
 
   onPageChange(ev: any) {
+    if (ev) {
+      this.paging.pageNumber = (ev.first / ev.rows) + 1;
+    }
 
+    return this.showAccount(this.listAccount);
   }
 
   onSubmit(id: string) {
@@ -167,12 +170,24 @@ export class AccountSettingComponent implements OnInit{
     return this.userService.getCompanyMember(this.paging).subscribe(
       res => {
         if (res.status === 200) {
-          this.accountMember = res.data.content;
+          this.listAccount = res.data.content;
           this.totalElements = res.data.totalElements;
           this.totalPages = res.data.totalPages;
+          this.showAccount(this.listAccount);
         }
       }
     )    
+  }
+
+  showAccount(list: any) {
+    this.accountMember = [];
+    for (let i = 0; i < list.length; i++) {
+      if (i >= (this.paging.pageNumber - 1) * this.paging.pageSize &&
+        i < this.paging.pageNumber * this.paging.pageSize) {
+        this.accountMember.push(list[i]);
+      }
+    }
+    return this.accountMember;
   }
 
   checkRole(role: string) {

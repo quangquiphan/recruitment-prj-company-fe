@@ -32,7 +32,7 @@ export class SkillComponent implements OnInit{
     private messageService: MessageService,
     private translateService: TranslateService
   ){
-    this.skillForm = fb.group({
+    this.skillForm = this.fb.group({
       skillName: ['', Validators.required]
     })
   }

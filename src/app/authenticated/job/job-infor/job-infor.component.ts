@@ -43,14 +43,6 @@ export class JobInforComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  onPageChange(ev: any) {
-    if (ev) {
-      this.paging.pageSize = ev.rows
-    }
-
-    this.paging.pageNumber = this.first + 1;
-  }
-
   openPoup(user: any) {
     if (user.cv || user.cv !== '') {
       return this.openPdf(user.userId);

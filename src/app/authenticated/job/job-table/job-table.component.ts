@@ -14,9 +14,10 @@ import AppConstant from 'src/app/utilities/app-constant';
 export class JobTableComponent implements OnInit{
   authUser: AuthUser | undefined;
   jobs: any[] = [];
+  list: any[] = [];
   paging: any = {
     pageNumber: 1,
-    pageSize: 10
+    pageSize: 5
   }
   totalElements: number = 0;
   first: number = 0;
@@ -35,6 +36,11 @@ export class JobTableComponent implements OnInit{
   }
 
   onPageChange(ev: any) {
+    if (ev) {
+      this.paging.pageNumber = (ev.first / ev.rows) + 1;
+    }
+
+    return this.showJobs(this.list);
   }
 
   checkExpiryDateJob(expiryDate: string) {
@@ -54,11 +60,25 @@ export class JobTableComponent implements OnInit{
     this.jobService.getAllJobByCompanyId(params).subscribe(
       res => {
         if (res.status === 200) {
-          this.jobs = res.data;
+          this.list = res.data;
           this.totalElements = res.data.length;
+          this.showJobs(this.list);
         }
       }
     )
+  }
+
+  showJobs(list: any) {
+    this.jobs = [];
+
+    for (let i = 0; i < list.length; i++) {
+      if (i >= (this.paging.pageNumber - 1) * this.paging.pageSize &&
+        i < this.paging.pageNumber * this.paging.pageSize) {
+        this.jobs.push(list[i]);
+      }
+    }
+
+    return this.jobs;
   }
 
   onCancel(ev: any) {
