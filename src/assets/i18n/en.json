@@ -149,9 +149,9 @@
         "orther": "Orther"
     },
     "role": {
-        "COMPANY_ADMIN": "Admin",
+        "COMPANY_ADMIN": "Admin company system",
         "COMPANY_MEMBER": "Member",
-        "COMPANY_ADMIN_MEMBER": "Admin"
+        "COMPANY_ADMIN_MEMBER": "Admin company member"
     },
     "salary": {
         "UNDER_3": "Under 3 million VND",

@@ -58,11 +58,18 @@
 
         <div class="font-bold">{{ 'label.role' | translate }}</div>
 
+        <div class="role flex align-items-center" *ngIf="userRole == constant.USER_ROLE.COMPANY_ADMIN"
+            [ngClass]="accountForm.value.role == constant.USER_ROLE.COMPANY_ADMIN?'role-active' : ''">
+            <p-radioButton name="role" [value]="constant.USER_ROLE.COMPANY_ADMIN" inputId="admin_sys" 
+               formControlName="role"></p-radioButton>
+            <label for="admin_sys">{{ parseRole(constant.USER_ROLE.COMPANY_ADMIN) }}</label>
+        </div>
+
         <div class="role flex align-items-center" 
             [ngClass]="accountForm.value.role == constant.USER_ROLE.COMPANY_ADMIN_MEMBER?'role-active' : ''">
             <p-radioButton name="role" [value]="constant.USER_ROLE.COMPANY_ADMIN_MEMBER" inputId="admin" 
                formControlName="role"></p-radioButton>
-            <label for="admin">{{ parseRole(constant.USER_ROLE.COMPANY_ADMIN) }}</label>
+            <label for="admin">{{ parseRole(constant.USER_ROLE.COMPANY_ADMIN_MEMBER) }}</label>
         </div>
 
         <div class="role flex align-items-center" style="margin-bottom: 30px;"

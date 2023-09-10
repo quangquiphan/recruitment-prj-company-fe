@@ -183,6 +183,7 @@ export class AuthenticateMenuComponent implements OnInit{
           AppUtil.getMessageSuccess(this.messageService, this.translateService,
             'message.update_information_successfully');
           this.getProfileUser();
+          this.isShowProfilePopup = false;
         } else {
           AppUtil.getMessageFailed(this.messageService, this.translateService, 
             'message.update_information_failed');

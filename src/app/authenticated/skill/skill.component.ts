@@ -23,7 +23,7 @@ export class SkillComponent implements OnInit{
   first: number = 0;
   paging: any = {
     pageNumber: 1,
-    pageSize: 10
+    pageSize: 5
   }
 
   constructor(
