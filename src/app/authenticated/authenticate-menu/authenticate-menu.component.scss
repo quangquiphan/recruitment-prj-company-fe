@@ -147,6 +147,18 @@
     color: var(--primary-700) !important;
 }
 
+.new-noti {
+    width: 10px;
+    height: 10px;
+    background-color: var(--green-300);
+    border: 1px solid var(--green-700);
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 124px;
+
+}
+
 :host::ng-deep {
     .p-sidebar-right {
         width: 25rem !important;

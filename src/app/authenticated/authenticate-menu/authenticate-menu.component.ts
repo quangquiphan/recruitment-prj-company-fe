@@ -28,7 +28,8 @@ export class AuthenticateMenuComponent implements OnInit{
   isShowSidebar: boolean = false;
   isChangePasswordPopup: boolean = false;
   isShowProfilePopup: boolean = false;
-  avatar: any;
+  isNewNotification: boolean = false;
+  avatar: any = '';
   notificationFilter: any[] = [];
   gender: any[] = [];
   majors: any[] = [];
@@ -223,6 +224,17 @@ export class AuthenticateMenuComponent implements OnInit{
     )
   }
 
+  onClose() {
+    this.isShowSidebar = false;
+    this.isNewNotification = false;
+    this.notifications.find((e: any) => {
+      if (!e.read) {
+        console.log(e);
+        this.isNewNotification = true
+      }
+    });
+  }
+
   loadMore() {
     this.paging.pageNumber += 1;
     this.getAllNotification(this.paging);
@@ -294,10 +306,17 @@ export class AuthenticateMenuComponent implements OnInit{
         res => {
           if (res.status === 200) {
             res.data.content.forEach((element: any) => {
-              this.notifications.push(element)
+              this.notifications.push(element);
             });
+
+            this.notifications.filter((e: any) => {
+              if (!e.read) {
+                this.isNewNotification = true;
+              }
+            });
+            
             this.totalElements = res.data.totalElements;
-            this.totalPages = res.data.totalPages;        
+            this.totalPages = res.data.totalPages;
           }
         }
       )

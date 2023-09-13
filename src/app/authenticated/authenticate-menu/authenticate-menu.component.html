@@ -23,7 +23,8 @@
     </div>
 
     <div class="relative body">
-        <div class="nav flex justify-content-end align-items-center">
+        <div class="nav flex justify-content-end align-items-center relative">
+            <span *ngIf="isNewNotification" class="new-noti"></span>
             <img src="../../../assets/images/icons/notification.svg" width="30px" 
                 class="cursor-pointer" (click)="isShowSidebar = true;">
             <div class="flex justify-content-center align-items-center cursor-pointer" 
@@ -44,7 +45,7 @@
     <p-menu [model]="items" #memnu [popup]="true"></p-menu>
 </div>
 
-<p-sidebar [(visible)]="isShowSidebar" position="right">
+<p-sidebar [(visible)]="isShowSidebar" position="right" (onHide)="onClose()">
     <ng-template pTemplate="header" class="flex align-items-center justify-content-start relative">
         <img src="../../../assets/images/icons/notification.svg" 
             [width]="30" style="margin-right: 20px;">
