@@ -59,6 +59,7 @@ export class CompanySettingComponent implements OnInit{
               'message.update_company_successfully');
             this.isEditCompanyPopup = false;
             this.getCompanyDetail();
+            window.location.reload();
           } else {
             AppUtil.getMessageFailed(this.messageService, this.translateService,
               'message.update_company_failed');
@@ -85,7 +86,7 @@ export class CompanySettingComponent implements OnInit{
             overview: res.data.overview,
             address: res.data.address,
             size: res.data.size
-          })
+          });
         }
       }
     )
@@ -109,7 +110,7 @@ export class CompanySettingComponent implements OnInit{
       next: (event : any) => {
         if (event.type === HttpEventType.UploadProgress) {
           this.getCompanyDetail();
-          // window.location.reload();
+          window.location.reload();
         }
       }
     })

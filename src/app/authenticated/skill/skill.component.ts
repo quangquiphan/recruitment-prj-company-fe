@@ -41,9 +41,9 @@ export class SkillComponent implements OnInit{
     
   }
 
-  onLoadData(ev?: any) {    
+  onLoadData(ev?: any) {
     if (ev) {
-      this.paging.pageNumber = this.first/ev.rows + 1;  
+      this.paging.pageNumber = ev.first/ev.rows + 1;  
     }  
 
     return this.skillService.getPageSkills(this.paging).subscribe(
