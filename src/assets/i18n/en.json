@@ -66,7 +66,8 @@
         "project": "Project",
         "projects": "Projects",
         "now": "Now",
-        "role": "Role"
+        "role": "Role",
+        "education": "Education"
     },
     "message": {
         "success": "Success",
@@ -108,7 +109,8 @@
         "do_you_wanna_reject_candidate": "Do you wanna reject candidate {{candidate}}?",
         "reject_candidate_successfully": "Reject candidate successfully!",
         "reject_candidate_failed": "Reject candidate failed!",
-        "permission_access_denied": "Permission access denied!"
+        "permission_access_denied": "Permission access denied!",
+        "sign_in_failed": "Sign in failed"
     },
     "button": {
         "sign_in": "Sign in",

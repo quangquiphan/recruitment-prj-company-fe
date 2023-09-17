@@ -142,10 +142,12 @@ export class AccountSettingComponent implements OnInit{
             'message.delete_member_successfully');
           this.getCompanyMember();
           this.showMemberSetting = false;
+          this.isConfirmDelete = false;
           this.accountForm.reset();
         } else {
           AppUtil.getMessageSuccess(this.messageService, this.translateService, 
             'message.delete_member_failed');
+          this.isConfirmDelete = false;
         }
       } 
     )

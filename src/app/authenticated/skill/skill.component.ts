@@ -64,6 +64,12 @@ export class SkillComponent implements OnInit{
     this.isShowPopupForm = true;
   }
 
+  onCancel() {
+    this.isShowPopupForm = false; 
+    this.skillId = ''; 
+    this.skillForm.reset()
+  }
+
   onSubmit() {
     if (this.skillId) {
       return this.updateSkill();
@@ -72,8 +78,8 @@ export class SkillComponent implements OnInit{
     return this.addSkill();
   }
 
-  onDelete() {
-    return this.skillService.deleteSkill(this.skillId).subscribe(
+  onDelete(id: string) {
+    return this.skillService.deleteSkill(id).subscribe(
       res => {
         if (res.status === 200) {
           AppUtil.getMessageSuccess(this.messageService, this.translateService, 
@@ -83,7 +89,7 @@ export class SkillComponent implements OnInit{
           this.isConfirmDelete = false;
         } else {
           AppUtil.getMessageFailed(this.messageService, this.translateService, 
-            'message.delete_skill_failed');
+            'message.permission_access_denied');
         }
       }
     )

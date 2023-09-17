@@ -27,7 +27,8 @@
 </div>
 
 <p-dialog [header]="(skillId ? 'label.edit_skill' : 'label.add_skill') | translate" [draggable]="false"
-    [(visible)]="isShowPopupForm" (onHide)="isShowPopupForm = false" class="custom-dialog">
+    [(visible)]="isShowPopupForm" (onHide)="onCancel()" 
+    class="custom-dialog">
     <form [formGroup]="skillForm" style="padding-top: 30px;">
         <div class="flex flex-column" style="margin-bottom: 30px;">
             <label for="skillName" class="font-size-13 font-bold" style="margin-bottom: 3px;">
@@ -41,7 +42,8 @@
                 (onClick)="onSubmit()" class="btn"></p-button>
 
             <p-button [label]="(skillId ? 'button.delete' : 'button.cancel') | translate"
-                (onClick)="skillId ? isConfirmDelete = true : isShowPopupForm = false" class="btn" [ngClass]="skillId ? 'btn-delete' : 'btn-cancel'">
+                (onClick)="skillId ? isConfirmDelete = true : onCancel()" 
+                class="btn" [ngClass]="skillId ? 'btn-delete' : 'btn-cancel'">
             </p-button>
         </div>
     </form>
@@ -56,10 +58,10 @@
 
         <div class="flex">
             <p-button [label]="'button.delete' | translate"
-                (onClick)="onDelete()" class="btn btn-delete"></p-button>
+                (onClick)="onDelete(skillId)" class="btn btn-delete"></p-button>
 
             <p-button [label]="'button.cancel' | translate"
-                (onClick)="isConfirmDelete = false" class="btn" [ngClass]="'btn-cancel'">
+                (onClick)="isConfirmDelete = false;" class="btn" [ngClass]="'btn-cancel'">
             </p-button>
         </div>
     </div>

@@ -119,7 +119,7 @@
             <label for="city" class="font-size-13" style="margin-bottom: 3px;">
                 {{ 'label.city' | translate }}
             </label>
-            <p-dropdown inputId="city" formControlName="city"
+            <p-dropdown inputId="city" formControlName="city" [filter]="true"
                 [options]="cities" [optionLabel]="'name'" [optionValue]="'name'"
                 [draggable]="false"></p-dropdown>
         </div>
