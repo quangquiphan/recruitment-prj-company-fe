@@ -67,7 +67,8 @@
         "projects": "Projects",
         "now": "Now",
         "role": "Role",
-        "education": "Education"
+        "education": "Education",
+        "expiry_date_ooption": "{{date}} days"
     },
     "message": {
         "success": "Success",

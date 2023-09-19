@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import AppConstant from "./app-constant";
 import { TranslateService } from '@ngx-translate/core';
 
@@ -368,6 +369,39 @@ const AppData = {
             {
                 id: 'MALE',
                 label: translate.instant('gender.MALE')
+            }
+        ]
+    },
+
+    getExpiryDate(translate: TranslateService) {
+        return [
+            {
+                id: moment(moment().add(10, 'days')).format(AppConstant.DATE_FORMAT.POST),
+                label: translate.instant('label.expiry_date_ooption', {date: 10})
+            },
+            {
+                id: moment(moment().add(15, 'days')).format(AppConstant.DATE_FORMAT.POST),
+                label: translate.instant('label.expiry_date_ooption', {date: 15})
+            },
+            {
+                id: moment(moment().add(20, 'days')).format(AppConstant.DATE_FORMAT.POST),
+                label: translate.instant('label.expiry_date_ooption', {date: 20})
+            },
+            {
+                id: moment(moment().add(30, 'days')).format(AppConstant.DATE_FORMAT.POST),
+                label: translate.instant('label.expiry_date_ooption', {date: 30})
+            },
+            {
+                id: moment(moment().add(60, 'days')).format(AppConstant.DATE_FORMAT.POST),
+                label: translate.instant('label.expiry_date_ooption', {date: 60})
+            },
+            {
+                id: moment(moment().add(90, 'days')).format(AppConstant.DATE_FORMAT.POST),
+                label: translate.instant('label.expiry_date_ooption', {date: 90})
+            },
+            {
+                id: moment(moment().add(120, 'days')).format(AppConstant.DATE_FORMAT.POST),
+                label: translate.instant('label.expiry_date_ooption', {date: 120})
             }
         ]
     }

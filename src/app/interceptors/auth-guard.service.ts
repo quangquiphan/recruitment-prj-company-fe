@@ -31,16 +31,6 @@ export class AuthGuard implements CanActivate {
                 (res: any) => {
                     const authUser: AuthUser = res.data;
                     this.authenticateService.setAuthUser(authUser);
-                    if (authUser.role == AppConstant.USER_ROLE.ADMIN || 
-                        authUser.role === AppConstant.USER_ROLE.USER) {
-                        
-                        AppUtil.getMessageFailed(this.messageService, this.translateService,
-                                'message.permission_access_denied');
-                        this.authenticateService.clearSession();
-                        this.router.navigate(['/sign-in']).then((r) => {});
-                        return false;
-                    }
-                    
                     return true;
                 },
                 (error: any) => {

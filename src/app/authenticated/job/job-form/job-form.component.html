@@ -100,9 +100,8 @@
             {{ 'label.expiry_date' | translate }}
         </label>
         
-        <p-calendar class="w-full" [showIcon]="true" [style]="{width: '100%'}"
-            formControlName="expiryDate" [dateFormat]="'dd-mm-yy'">
-        </p-calendar>
+        <p-dropdown [options]="expiryDate" [optionLabel]="'label'" [optionValue]="'id'"
+            formControlName="expiryDate"></p-dropdown>
     </div>
 
     <div class="flex w-full justify-content-between" style="margin-bottom: 20px;">
