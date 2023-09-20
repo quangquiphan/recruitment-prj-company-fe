@@ -99,9 +99,10 @@
         <label for="expiryDate" class="font-size-13" style="margin-bottom: 3px;">
             {{ 'label.expiry_date' | translate }}
         </label>
-        
-        <p-dropdown [options]="expiryDate" [optionLabel]="'label'" [optionValue]="'id'"
-            formControlName="expiryDate"></p-dropdown>
+
+        <p-calendar inputId="expiryDate" formControlName="expiryDate"
+            [showIcon]="true" [dateFormat]="'dd-mm-yy'" [appendTo]="'body'"
+            [readonlyInput]="true"></p-calendar>
     </div>
 
     <div class="flex w-full justify-content-between" style="margin-bottom: 20px;">

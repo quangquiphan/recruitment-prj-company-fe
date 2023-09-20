@@ -33,7 +33,7 @@
 </p-tabView>
 
 <p-dialog class="custom-dialog" [(visible)]="isShowPopupForm" (onHide)="isShowPopupForm = false"
-    [header]="'label.edit_job' | translate" [draggable]="false">
+    [header]="'label.edit_job' | translate" [draggable]="false" [blockScroll]="true">
     <app-job-form *ngIf="isShowPopupForm" [companyId]="job?.companyId || ''"
         (isLoadData)="onOpen($event)" [jobId]="job?.id || ''" (isDelete)="confirmDelete($event)"></app-job-form>
 </p-dialog>

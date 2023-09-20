@@ -107,13 +107,13 @@ export class JobDetailComponent implements OnInit{
       res => {
         if (res.status === 200) {
           AppUtil.getMessageSuccess(this.messageService, this.translateService,
-            'message.delete_job_successfully!');
+            'message.delete_job_successfully');
           this.isShowPopupForm = false;
           this.isShowConfirmDeletePopup = false;
           this.onBack();
         } else {
           AppUtil.getMessageSuccess(this.messageService, this.translateService,
-            'message.delete_job_successfully!');
+            'message.delete_job_failed');
           this.isShowPopupForm = false;
           this.isShowConfirmDeletePopup = false;
         }

@@ -59,7 +59,7 @@
 </div>
 
 <p-dialog class="custom-dialog" [(visible)]="isShowPopupForm" (onHide)="isShowPopupForm = false"
-    [header]="'label.add_job' | translate" [draggable]="false">
+    [header]="'label.add_job' | translate" [draggable]="false" [blockScroll]="true">
     <app-job-form *ngIf="isShowPopupForm" [companyId]="this.authUser?.company.id"
         (isLoadData)="onCancel($event)" [jobId]="''"></app-job-form>
 </p-dialog>

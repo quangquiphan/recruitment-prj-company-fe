@@ -229,7 +229,6 @@ export class AuthenticateMenuComponent implements OnInit{
     this.isNewNotification = false;
     this.notifications.find((e: any) => {
       if (!e.read) {
-        console.log(e);
         this.isNewNotification = true
       }
     });
